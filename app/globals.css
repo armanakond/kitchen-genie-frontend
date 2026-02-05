@@ -24,3 +24,598 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/*main layout and components*/
+
+:root {
+  --bg-1: #140d23;
+  --bg-2: #24133d;
+  --panel: rgba(12, 10, 18, 0.85);
+  --panel-border: rgba(255, 255, 255, 0.06);
+  --text: #f3f1ff;
+  --muted: rgba(243, 241, 255, 0.65);
+  --gold: #b07a1c;
+  --gold-2: #d59a2f;
+  --shadow: rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.kg-body {
+  /*layout*/
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:
+    radial-gradient(900px 500px at 50% 10%, rgba(255, 255, 255, 0.06), transparent 60%),
+    radial-gradient(700px 500px at 10% 90%, rgba(176, 122, 28, 0.10), transparent 55%),
+    linear-gradient(180deg, var(--bg-2), var(--bg-1));
+}
+
+/* layout */
+.screen {
+  min-height: 100vh;
+  width: min(980px, 92vw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  justify-items: center;
+  align-items: start;
+  padding: 34px 18px 22px;
+  gap: 18px;
+}
+
+.brand {
+  display: grid;
+  place-items: center;
+}
+
+
+
+.panel {
+  width: min(900px, 92vw);
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  box-shadow: 0 22px 60px var(--shadow);
+  padding: clamp(26px, 4vw, 46px) clamp(22px, 4vw, 52px);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+.headline {
+  margin: 0;
+  line-height: 1.25;
+  letter-spacing: 0.5px;
+  font-size: clamp(18px, 2.4vw, 28px);
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.gold {
+  display: block;
+  margin-top: 10px;
+  color: var(--gold-2);
+}
+
+.subtext {
+  margin: 0;
+  max-width: 54ch;
+  color: var(--muted);
+  font-size: clamp(13px, 1.6vw, 15px);
+  line-height: 1.55;
+}
+
+.actions {
+  margin-top: 8px;
+  display: grid;
+  gap: 12px;
+  width: min(420px, 92%);
+  justify-items: center;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  width: min(280px, 100%);
+  height: 44px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  background: linear-gradient(180deg, var(--gold-2), var(--gold));
+  color: #1a1207;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.35);
+  transition: transform 120ms ease, filter 120ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+
+.divider {
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 800;
+  letter-spacing: 2px;
+  font-size: 12px;
+}
+
+/* authentication (signup/login) */
+.authScreen {
+  /* keeps same background from layout/body, just centers a slimmer card */
+  grid-template-rows: auto 1fr;
+}
+
+.authCard {
+  width: min(420px, 92vw);
+  background: rgba(12, 10, 18, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.35);
+  padding: 34px 26px 26px;
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.authTitle {
+  margin: 6px 0 8px;
+  font-weight: 900;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  font-size: 16px;
+  text-align: center;
+}
+
+.authForm {
+  width: 100%;
+  display: grid;
+  gap: 14px;
+}
+
+.authInput {
+  width: 100%;
+  height: 42px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(243, 241, 255, 0.90);
+  padding: 0 12px;
+  outline: none;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  text-transform: none;
+  ;
+}
+
+.authInput::placeholder {
+  color: rgba(243, 241, 255, 0.55);
+}
+
+.authInput:focus {
+  border-color: rgba(213, 154, 47, 0.55);
+  box-shadow: 0 0 0 3px rgba(213, 154, 47, 0.10);
+}
+
+.authBtn {
+  margin-top: 6px;
+  width: 100%;
+  height: 44px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  background: linear-gradient(180deg, var(--gold-2), var(--gold));
+  color: #1a1207;
+  font-weight: 900;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.35);
+  transition: transform 120ms ease, filter 120ms ease;
+}
+
+.authBtn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+
+.authBtn:active {
+  transform: translateY(0px);
+  filter: brightness(0.98);
+}
+
+.authLink {
+  margin-top: 2px;
+  color: rgba(243, 241, 255, 0.85);
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.authLink:hover {
+  text-decoration: underline;
+}
+
+/* dashboard page */
+
+.dash-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  background: radial-gradient(circle at center, #2a1b45 0%, #140b22 55%, #09070f 100%);
+  color: #fff;
+}
+
+.dash-sidebar {
+  padding: 28px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.dash-logo {
+  display: flex;
+  justify-content: center;
+}
+
+.dash-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.dash-btn {
+  display: block;
+  text-align: center;
+  padding: 14px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: white;
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: 2px;
+  font-size: 13px;
+}
+
+.dash-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.dash-main {
+  padding: 20px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dash-topbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-size: 12px;
+  opacity: 0.95;
+}
+
+.dash-lvl {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dash-xpbar {
+  width: 240px;
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dash-xpfill {
+  height: 100%;
+  background: #c98a1c;
+  border-radius: 999px;
+}
+
+.dash-xptext {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dash-content {
+  display: grid;
+  grid-template-columns: 1fr 700px;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.dash-hero {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 34px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 260px;
+}
+
+.dash-title {
+  font-size: 30px;
+  line-height: 1.15;
+  letter-spacing: 2px;
+  margin: 0;
+  font-weight: 900;
+}
+
+.dash-subtitle {
+  margin: 18px 0 8px;
+  font-size: 18px;
+  letter-spacing: 2px;
+  font-weight: 900;
+}
+
+.dash-desc {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.dash-stats {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(201, 138, 28, 0.5);
+  border-radius: 14px;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.dash-stat {
+  border: 1px solid rgba(201, 138, 28, 0.5);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.dash-stat-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.dash-stat-value {
+  margin-top: 8px;
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.dash-paths {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 6px;
+}
+
+.dash-card {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(201, 138, 28, 0.55);
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+}
+
+.dash-card-title {
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-top: 6px;
+}
+
+.dash-card-text {
+  margin-top: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.dash-hearts {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  font-size: 18px;
+}
+
+.dash-card-btn {
+  margin-top: 14px;
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  background: #c98a1c;
+  border: none;
+  cursor: pointer;
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-size: 11px;
+}
+
+.dash-card-btn:hover {
+  background: #e6a323;
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .dash-page {
+    grid-template-columns: 1fr;
+  }
+
+  .dash-sidebar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dash-nav {
+    flex-direction: row;
+    margin-top: 0;
+  }
+
+  .dash-content {
+    grid-template-columns: 1fr;
+  }
+
+  .dash-paths {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*  tutorial page 1 */
+
+.tut-page {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #2a1b45 0%, #140b22 55%, #09070f 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+/* header bar */
+.tut-header {
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0 24px;
+}
+
+.tut-title {
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: 3px;
+  font-size: 26px;
+  text-align: center;
+}
+
+.tut-logo {
+  position: absolute;
+  right: 24px;
+  top: 18px;
+  display: flex;
+  align-items: center;
+}
+
+/* body */
+.tut-body {
+  flex: 1;
+  padding: 50px 40px;
+  position: relative;
+}
+
+.tut-text {
+  max-width: 1000px;
+}
+
+.tut-lead {
+  margin: 0 0 22px;
+  font-size: 30px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.tut-bold {
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.tut-rule {
+  margin-top: 16px;
+}
+
+.tut-rule-title {
+  margin: 0 0 6px;
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.tut-rule-desc {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* buttons on the bottom right */
+.tut-actions {
+  position: absolute;
+  right: 40px;
+  bottom: 26px;
+  display: flex;
+  gap: 16px;
+}
+
+.tut-btn {
+  width: 150px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  text-decoration: none;
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-size: 11px;
+  transition: 0.2s;
+}
+
+.tut-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* tutorial page 2 */
+.tut-back {
+  position: absolute;
+  left: 24px;
+  top: 22px;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+  font-size: 22px;
+  font-weight: 900;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: 0.2s;
+}
+
+.tut-back:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
