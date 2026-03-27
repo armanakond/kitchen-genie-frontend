@@ -3,56 +3,68 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
 
 export default function LoginPage() {
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    const email = (form.elements[0] as HTMLInputElement).value;
+    const password = (form.elements[1] as HTMLInputElement).value;
 
-    // mock login working for now
-    router.push("/tutorial");
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    router.push("/dashboard");
   };
 
   return (
     <main className="screen authScreen">
       <header className="brand">
-        <Image
-          src="/images/logo.png"
-          alt="Kitchen Genie logo"
-          width={200}
-          height={200}
-          priority
-        />
+        <Image src="/images/logo.png" alt="Kitchen Genie logo" width={200} height={200} priority />
       </header>
 
       <section className="authCard" aria-label="Log into your account">
-        <h1 className="authTitle">LOG INTO YOUR ACCOUNT</h1>
+        <div className="authCardHeader">
+          <h1 className="authTitle">WELCOME BACK</h1>
+          <p className="authSubtitle">Welcome back. Please enter your details.</p>
+        </div>
 
         <form className="authForm" onSubmit={handleSubmit}>
           <input
             className="authInput"
-            type="text"
-            placeholder="ENTER FAKE NAME"
+            type="email"
+            placeholder="Email address"
             required
           />
 
-          <input
-            className="authInput"
-            type="password"
-            placeholder="ENTER PASSWORD"
-            required
-          />
+          <div className="authPasswordGroup">
+            <input
+              className="authInput"
+              type="password"
+              placeholder="Password"
+              required
+            />
+            <Link className="authForgot" href="/forgot-password">
+              Forgot password?
+            </Link>
+          </div>
 
           <button className="authBtn" type="submit">
             LOGIN
           </button>
         </form>
 
-        <p>
+        <p className="authFooter">
           Don't have an account?{" "}
           <Link className="authLink" href="/signup">
-            <u>SIGN UP HERE</u>
+            Sign up here
           </Link>
         </p>
       </section>
