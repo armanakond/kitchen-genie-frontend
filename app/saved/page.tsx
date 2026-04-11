@@ -5,19 +5,19 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
 
 // placeholder username, wil lcome from supabase user_metadata
 const USERNAME = "Your Username";
 
-//still hardcoded, need to implement the fetched data from supabase saved_recipes joined with recipes
-
-const MASTERED_RECIPES = [
-  { id: "scrambled-eggs", name: "Scrambled Eggs", time: "5-7 min", img: "/images/recipes/scrambled-eggs.jpg", difficulty: "BEGINNER" },
-  { id: "cheese-omelette", name: "Cheese Omelette", time: "10 min", img: "/images/recipes/cheese-omelette.jpg", difficulty: "BEGINNER" },
-  { id: "chicken-stir-fry", name: "Chicken Stir Fry", time: "20 min", img: "/images/recipes/chicken-stir-fry.jpg", difficulty: "BEGINNER" },
-  { id: "garlic-butter-pasta", name: "Garlic Butter Pasta", time: "15 min", img: "/images/recipes/garlic-butter-pasta.jpg", difficulty: "BEGINNER" },
-  { id: "spaghetti-bolognese", name: "Spaghetti Bolognese", time: "30 min", img: "/images/recipes/spaghetti-bolognese.jpg", difficulty: "INTERMEDIATE" },
-];
+type SavedRecipe = {
+  id: string;
+  name: string;
+  time_minutes: number;
+  image_url: string;
+  difficulty: string;
+}
 
 
 //colour coding based on difficulty
@@ -28,6 +28,51 @@ const DIFFICULTY_COLOUR: Record<string, string> = {
 };
 
 export default function SavedRecipesPage() {
+  const [username, setUsername] = useState("Your Username");
+  const [recipes, setRecipes] = useState<SavedRecipe[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      setUsername(user.user_metadata?.display_name ?? "Your Username");
+
+      const { data: progressData } = await supabase
+        .from("user_progress")
+        .select("recipe_id")
+        .eq("user_id", user.id)
+        .eq("completed", true);
+
+      if (!progressData || progressData.length === 0) {
+        setLoading(false);
+        return;
+      }
+
+      const recipeIds = progressData.map((p) => p.recipe_id);
+      const { data: recipesData } = await supabase
+        .from("recipes")
+        .select("id, name, time_minutes, image_url, difficulty")
+        .in("id", recipeIds)
+        .order("name");
+
+      if (recipesData) setRecipes(recipesData);
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  const beginnerCount = recipes.filter((r) => r.difficulty === "BEGINNER").length;
+  const intermediateCount = recipes.filter((r) => r.difficulty === "INTERMEDIATE").length;
+  const advancedCount = recipes.filter((r) => r.difficulty === "ADVANCED").length;
+
+  const getPracticeLink = (recipe: SavedRecipe) => {
+    const diff = recipe.difficulty.toLowerCase();
+    return `/practice/${diff}/${recipe.id}`;
+  };
+
   return (
     <main className="saved-page">
       {/* header */}
@@ -46,25 +91,25 @@ export default function SavedRecipesPage() {
       <div className="saved-body">
         {/* username + stats row */}
         <div className="saved-top">
-          <div className="saved-username">{USERNAME}</div>
+          <div className="saved-username">{username}</div>
 
           {/* stats row with total mastered recipes, and breakdown by difficulty */}
           <div className="saved-stats-row">
             <div className="saved-stat">
-              <span className="saved-stat-value">{MASTERED_RECIPES.length}</span>
+              <span className="saved-stat-value">{recipes.length}</span>
               <span className="saved-stat-label">MASTERED</span>
             </div>
             <div className="saved-stat">
-              <span className="saved-stat-value">3</span>
+              <span className="saved-stat-value">{beginnerCount}</span>
               <span className="saved-stat-label">BEGINNER</span>
             </div>
             <div className="saved-stat">
-              <span className="saved-stat-value">1</span>
+              <span className="saved-stat-value">{intermediateCount}</span>
               <span className="saved-stat-label">INTERMEDIATE</span>
             </div>
             {/*stats will eventually come from supabase user_progress counts */}
             <div className="saved-stat">
-              <span className="saved-stat-value">0</span>
+              <span className="saved-stat-value">{advancedCount}</span>
               <span className="saved-stat-label">ADVANCED</span>
             </div>
           </div>
@@ -74,42 +119,48 @@ export default function SavedRecipesPage() {
         <div className="saved-panel">
           <div className="saved-panel-header">
             <h2 className="saved-panel-title">MASTERED RECIPES</h2>
-            <span className="saved-panel-count">{MASTERED_RECIPES.length} recipes</span>
+            <span className="saved-panel-count">{recipes.length} recipes</span>
           </div>
 
-          {/*recipe cards grid */}
-          <div className="saved-grid">
-            {MASTERED_RECIPES.map((recipe) => (
-              <Link
-                key={recipe.id}
-                href={`/learn/recipes/beginner/${recipe.id}`}
-                className="saved-card"
-              >
-                <div className="saved-card-img-wrap">
-                  <img src={recipe.img} alt={recipe.name} className="saved-card-img" />
-                  {/* difficulty badge, colour coded */}
-                  <span
-                    className="saved-card-badge"
-                    style={{ background: DIFFICULTY_COLOUR[recipe.difficulty] }}
-                  >
-                    {recipe.difficulty}
-                  </span>
-                </div>
-                <div className="saved-card-info">
-                  <div className="saved-card-name">{recipe.name}</div>
-                  <div className="saved-card-time">⏱ {recipe.time}</div>
-                </div>
-              </Link>
-            ))}
-          </div>
+
+          {loading ? (
+            <div className="saved-loading">Loading recipes...</div>
+          ) : (
+            //recipe grid, shows all mastered recipes with image, name, time and difficulty badge, links to practice page for that recipe
+            < div className="saved-grid">
+              {recipes.map((recipe) => (
+                <Link
+                  key={recipe.id}
+                  href={getPracticeLink(recipe)}
+                  className="saved-card"
+                >
+                  <div className="saved-card-img-wrap">
+                    <img src={recipe.image_url} alt={recipe.name} className="saved-card-img" />
+                    {/* difficulty badge, colour coded */}
+                    <span
+                      className="saved-card-badge"
+                      style={{ background: DIFFICULTY_COLOUR[recipe.difficulty] }}
+                    >
+                      {recipe.difficulty}
+                    </span>
+                  </div>
+                  <div className="saved-card-info">
+                    <div className="saved-card-name">{recipe.name}</div>
+                    <div className="saved-card-time">⏱ {recipe.time_minutes}</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+          )}
           {/*empty state shown when no recipes are saved */}
-          {MASTERED_RECIPES.length === 0 && (
+          {!loading && recipes.length === 0 && (
             <div className="saved-empty">
               No mastered recipes yet. Complete challenges to earn them!
             </div>
           )}
         </div>
       </div>
-    </main>
+    </main >
   );
 }
