@@ -1,7 +1,7 @@
+import type { Metadata } from "next";
 import "./globals.css";
 
-
-export const metadata = {
+export const metadata: Metadata = {
   title: "Kitchen Genie",
   description: "Master the kitchen one card at a time",
 };
@@ -19,3 +19,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+

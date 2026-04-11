@@ -59,10 +59,6 @@ export default function AdvancedRecipesPage() {
           </Link>
         ))}
       </div>
-
-      <div className="rdr-coming-soon">
-        CHALLENGE MODE N/A FOR ADVANCED CURRENTLY BUT WILL BE ADDED IN CODE
-      </div>
     </main>
   );
 }

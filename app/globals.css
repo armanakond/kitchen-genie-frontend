@@ -1385,13 +1385,13 @@ body {
   color: rgba(255, 255, 255, 0.55);
 }
 
-.rdr-coming-soon {
-  padding: 24px 32px 40px;
-  font-size: clamp(11px, 1.1vw, 14px);
-  font-weight: 900;
+.rdr-loading {
+  text-align: center;
+  padding: 60px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
   letter-spacing: 2px;
-  color: rgba(255, 255, 255, 0.25);
-  line-height: 1.6;
+  font-weight: 900;
 }
 
 /* =====================================================
@@ -1782,3 +1782,490 @@ body {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* =====================================================
+   GAME PAGE
+   ===================================================== */
+
+.game-page {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #1e1535 0%, #100b1e 60%, #07050e 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.game-header {
+  height: 90px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.game-back {
+  position: absolute;
+  left: 24px;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 20px;
+  font-weight: 900;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.game-back:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.game-title {
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: 3px;
+  font-size: clamp(16px, 2.2vw, 26px);
+}
+
+.game-logo {
+  position: absolute;
+  right: 24px;
+  top: 5px;
+}
+
+.game-body {
+  flex: 1;
+  display: flex;
+  gap: 24px;
+  padding: 24px 32px;
+  min-height: 0;
+}
+
+.game-quest {
+  width: 180px;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(201, 138, 28, 0.45);
+  border-radius: 12px;
+  padding: 18px 16px;
+}
+
+.game-quest-title {
+  font-weight: 900;
+  letter-spacing: 1px;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.game-quest-recipe {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.game-quest-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.game-quest-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.game-quest-item.done {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.game-quest-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #c98a1c;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #1a1207;
+  font-weight: 900;
+}
+
+.game-challenge {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.game-prompt {
+  margin: 0;
+  font-size: clamp(16px, 2vw, 22px);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.game-drop-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.game-dropzone {
+  width: 130px;
+  height: 170px;
+  border: 2px dashed rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.game-dropzone.drag-over {
+  border-color: #c98a1c;
+  background: rgba(201, 138, 28, 0.08);
+}
+
+.game-dropzone.has-card {
+  border-style: solid;
+  border-color: rgba(201, 138, 28, 0.6);
+}
+
+.game-dropzone.correct {
+  border-color: #4caf50;
+  background: rgba(76, 175, 80, 0.15);
+}
+
+.game-dropzone.wrong {
+  border-color: #f44336;
+  background: rgba(244, 67, 54, 0.15);
+}
+
+.game-drop-hint {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 200px;
+}
+
+.game-progress {
+  font-size: clamp(10px, 1vw, 12px);
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.game-tray {
+  flex-shrink: 0;
+  min-height: 160px;
+  background: rgba(0, 0, 0, 0.45);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px 24px;
+  flex-wrap: wrap;
+}
+
+.game-card {
+  width: 110px;
+  height: 140px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 6px 10px;
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.12s, opacity 0.15s;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.game-card:active {
+  cursor: grabbing;
+  transform: scale(0.97);
+}
+
+.game-card.used {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.game-card.placed {
+  cursor: default;
+}
+
+.game-card--ingredient {
+  background: #1e5c1e;
+}
+
+.game-card--action {
+  background: #c98a1c;
+}
+
+.game-card-type {
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(0, 0, 0, 0.28);
+  border-radius: 4px;
+  padding: 2px 6px;
+  align-self: stretch;
+  text-align: center;
+}
+
+.game-card--action .game-card-type {
+  color: rgba(26, 18, 7, 0.9);
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.game-card-icon {
+  font-size: 34px;
+  line-height: 1;
+}
+
+.game-card-label {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.game-card--action .game-card-label {
+  color: #1a1207;
+}
+
+/* =====================================================
+   QUEST COMPLETE
+   ===================================================== */
+
+.complete-page {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #1a1230 0%, #0d091a 60%, #060409 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  position: relative;
+}
+
+.complete-logo {
+  position: absolute;
+  top: 16px;
+  right: 24px;
+}
+
+.complete-title {
+  margin: 0;
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 900;
+  letter-spacing: 4px;
+}
+
+.complete-stars {
+  display: flex;
+  gap: 20px;
+}
+
+.complete-star {
+  font-size: clamp(50px, 8vw, 72px);
+  line-height: 1;
+}
+
+.complete-star.filled {
+  color: #f5c518;
+  text-shadow: 0 0 24px rgba(245, 197, 24, 0.45);
+}
+
+.complete-star.empty {
+  color: rgba(255, 255, 255, 0.15);
+}
+
+.complete-score-box {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 18px 52px;
+  font-size: clamp(18px, 2.2vw, 24px);
+  font-weight: 900;
+  letter-spacing: 2px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.complete-score-value {
+  color: #f5c518;
+}
+
+.complete-actions {
+  display: flex;
+  gap: 20px;
+}
+
+.complete-btn {
+  width: 160px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: white;
+  text-decoration: none;
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-size: 13px;
+  transition: background 0.15s;
+}
+
+.complete-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.complete-recipe-name {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: clamp(12px, 1.4vw, 16px);
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.complete-mistakes {
+  margin: 0;
+  font-size: clamp(11px, 1.1vw, 14px);
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 1px;
+}
+
+.complete-btn--gold {
+  background: #c98a1c;
+  color: #1a1207;
+  border-color: #c98a1c;
+  font-weight: 900;
+}
+
+.complete-btn--gold:hover {
+  background: #e6a323;
+  border-color: #e6a323;
+}
+
+.game-fail-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.game-fail-box {
+  background: #1a0f2e;
+  border: 2px solid #f44336;
+  border-radius: 16px;
+  padding: 40px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.game-fail-icon {
+  font-size: 52px;
+  line-height: 1;
+}
+
+.game-fail-title {
+  margin: 0;
+  font-size: clamp(18px, 2.2vw, 24px);
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #f44336;
+}
+
+.game-fail-desc {
+  margin: 0;
+  font-size: clamp(11px, 1.1vw, 14px);
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 1px;
+}
+
+.game-fail-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.game-fail-btn {
+  height: 46px;
+  padding: 0 24px;
+  border-radius: 8px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-size: clamp(10px, 1vw, 12px);
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.15s;
+  border: none;
+}
+
+.game-fail-btn--retry {
+  background: #f44336;
+  color: white;
+}
+
+.game-fail-btn--retry:hover { background: #e53935; }
+
+.game-fail-btn--back {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.game-fail-btn--back:hover { background: rgba(255, 255, 255, 0.14); }

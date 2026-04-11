@@ -2,25 +2,43 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
 
-// Later this will come from Supabase
-const RECIPES = [
-  { id: "spaghetti-bolognese", name: "Spaghetti Bolognese", time: "30 min", img: "/images/recipes/spaghetti-bolognese.jpg" },
-  { id: "chicken-alfredo-pasta", name: "Chicken Alfredo Pasta", time: "25 min", img: "/images/recipes/chicken-alfredo-pasta.jpg" },
-  { id: "beef-tacos", name: "Beef Tacos", time: "25 min", img: "/images/recipes/beef-tacos.jpg" },
-  { id: "chicken-curry-basic", name: "Chicken Curry (Basic)", time: "35 min", img: "/images/recipes/chicken-curry.jpg" },
-  { id: "baked-chicken-thighs", name: "Baked Chicken Thighs", time: "40 min", img: "/images/recipes/baked-chicken-thighs.jpg" },
-  { id: "homemade-burgers", name: "Homemade Burgers", time: "30 min", img: "/images/recipes/homemade-burgers.jpg" },
-  { id: "mushroom-risotto", name: "Mushroom Risotto", time: "35 min", img: "/images/recipes/mushroom-risotto.jpg" },
-  { id: "fish-tacos", name: "Fish Tacos", time: "25 min", img: "/images/recipes/fish-tacos.jpg" },
-  { id: "stuffed-bell-peppers", name: "Stuffed Bell Peppers", time: "45 min", img: "/images/recipes/stuffed-bell-peppers.jpg" },
-];
+type Recipe = {
+  id: string;
+  name: string;
+  time_minutes: number;
+  image_url: string;
+  difficulty: string;
+};
 
-export default function PracticeIntermediateRecipesPage() {
+export default function PracticeIntermediatePage() {
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  const filtered = RECIPES.filter((r) =>
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      const { data, error } = await supabase
+        .from("recipes")
+        .select("*")
+        .eq("difficulty", "INTERMEDIATE")
+        .order("name");
+
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      setRecipes(data ?? []);
+      setLoading(false);
+    };
+
+    fetchRecipes();
+  }, []);
+
+  const filtered = recipes.filter((r) =>
     r.name.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -48,17 +66,25 @@ export default function PracticeIntermediateRecipesPage() {
         />
       </div>
 
-      <div className="rdr-grid">
-        {filtered.map((recipe) => (
-          <Link key={recipe.id} href={`/practice/intermediate/${recipe.id}`} className="rdr-card">
-            <div className="rdr-card-img-wrap">
-              <img src={recipe.img} alt={recipe.name} className="rdr-card-img" />
-            </div>
-            <div className="rdr-card-name">{recipe.name}</div>
-            <div className="rdr-card-time">Time: &nbsp;{recipe.time}</div>
-          </Link>
-        ))}
-      </div>
+      {loading ? (
+        <div className="rdr-loading">Loading recipes...</div>
+      ) : (
+        <div className="rdr-grid">
+          {filtered.map((recipe) => (
+            <Link
+              key={recipe.id}
+              href={`/practice/intermediate/${recipe.id}`}
+              className="rdr-card"
+            >
+              <div className="rdr-card-img-wrap">
+                <img src={recipe.image_url} alt={recipe.name} className="rdr-card-img" />
+              </div>
+              <div className="rdr-card-name">{recipe.name}</div>
+              <div className="rdr-card-time">Time: &nbsp;{recipe.time_minutes} min</div>
+            </Link>
+          ))}
+        </div>
+      )}
     </main>
   );
 }

@@ -59,10 +59,6 @@ export default function IntermediateRecipesPage() {
           </Link>
         ))}
       </div>
-
-      <div className="rdr-coming-soon">
-        CHALLENGE MODE N/A FOR INTERMEDIATE CURRENTLY BUT WILL BE ADDED IN CODE
-      </div>
     </main>
   );
 }
