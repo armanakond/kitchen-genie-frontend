@@ -1,13 +1,17 @@
+//verify email page
+//users have to click the verification link before logging in
+
 import Image from "next/image";
 import Link from "next/link";
 
 export default function VerifyEmailPage() {
   return (
     <main className="screen authScreen">
+      {/*logo */}
       <header className="brand">
         <Image src="/images/logo.png" alt="Kitchen Genie logo" width={200} height={200} priority />
       </header>
-
+      {/*Verification instructions */}
       <section className="authCard">
         <div className="authCardHeader">
           <h1 className="authTitle">CHECK YOUR EMAIL</h1>
@@ -27,7 +31,7 @@ export default function VerifyEmailPage() {
             Didn't receive it? Check your spam folder.
           </p>
         </div>
-
+        {/*Link to login page in case user already verified their email */}
         <p className="authFooter">
           Already verified?{" "}
           <Link className="authLink" href="/login">

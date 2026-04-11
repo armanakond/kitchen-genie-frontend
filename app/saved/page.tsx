@@ -1,13 +1,15 @@
+//saved recipes page, shows all the recipes the user has saved/mastered, with stats and progress towards next level
+//currently hardcoded with placeholder data
+
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
 
-// Later this will come from Supabase based on logged in user
+// placeholder username, wil lcome from supabase user_metadata
 const USERNAME = "Your Username";
 
-//const { data: { user } } = await supabase.auth.getUser()
-//const displayName = user?.user_metadata?.display_name
+//still hardcoded, need to implement the fetched data from supabase saved_recipes joined with recipes
 
 const MASTERED_RECIPES = [
   { id: "scrambled-eggs", name: "Scrambled Eggs", time: "5-7 min", img: "/images/recipes/scrambled-eggs.jpg", difficulty: "BEGINNER" },
@@ -17,6 +19,8 @@ const MASTERED_RECIPES = [
   { id: "spaghetti-bolognese", name: "Spaghetti Bolognese", time: "30 min", img: "/images/recipes/spaghetti-bolognese.jpg", difficulty: "INTERMEDIATE" },
 ];
 
+
+//colour coding based on difficulty
 const DIFFICULTY_COLOUR: Record<string, string> = {
   BEGINNER: "#2a7a2a",
   INTERMEDIATE: "#c98a1c",
@@ -43,6 +47,8 @@ export default function SavedRecipesPage() {
         {/* username + stats row */}
         <div className="saved-top">
           <div className="saved-username">{USERNAME}</div>
+
+          {/* stats row with total mastered recipes, and breakdown by difficulty */}
           <div className="saved-stats-row">
             <div className="saved-stat">
               <span className="saved-stat-value">{MASTERED_RECIPES.length}</span>
@@ -56,6 +62,7 @@ export default function SavedRecipesPage() {
               <span className="saved-stat-value">1</span>
               <span className="saved-stat-label">INTERMEDIATE</span>
             </div>
+            {/*stats will eventually come from supabase user_progress counts */}
             <div className="saved-stat">
               <span className="saved-stat-value">0</span>
               <span className="saved-stat-label">ADVANCED</span>
@@ -70,6 +77,7 @@ export default function SavedRecipesPage() {
             <span className="saved-panel-count">{MASTERED_RECIPES.length} recipes</span>
           </div>
 
+          {/*recipe cards grid */}
           <div className="saved-grid">
             {MASTERED_RECIPES.map((recipe) => (
               <Link
@@ -79,6 +87,7 @@ export default function SavedRecipesPage() {
               >
                 <div className="saved-card-img-wrap">
                   <img src={recipe.img} alt={recipe.name} className="saved-card-img" />
+                  {/* difficulty badge, colour coded */}
                   <span
                     className="saved-card-badge"
                     style={{ background: DIFFICULTY_COLOUR[recipe.difficulty] }}
@@ -93,7 +102,7 @@ export default function SavedRecipesPage() {
               </Link>
             ))}
           </div>
-
+          {/*empty state shown when no recipes are saved */}
           {MASTERED_RECIPES.length === 0 && (
             <div className="saved-empty">
               No mastered recipes yet. Complete challenges to earn them!

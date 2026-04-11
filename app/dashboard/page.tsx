@@ -1,3 +1,6 @@
+//dashboard page, main hub after login or signup
+//shows stats, recent activity, and daily challenge, with sidebar navigation to other sections
+
 "use client";
 
 import Image from "next/image";
@@ -27,6 +30,7 @@ type DailyChallenge = {
 
 const DAILY_CHALLENGE_DESC = "Drag the correct cards in order to complete today's challenge and earn XP!";
 
+//state for user data fetched from supabase
 export default function DashboardPage() {
   const router = useRouter();
   const [displayName, setDisplayName] = useState("Chef");
@@ -35,14 +39,16 @@ export default function DashboardPage() {
   const [recentRecipes, setRecentRecipes] = useState<RecentRecipe[]>([]);
   const [dailyChallenge, setDailyChallenge] = useState<DailyChallenge | null>(null);
   const [loading, setLoading] = useState(true);
-
+  //fetch all dashboard data on load - user info, stats, recent activity, and daily challenge
   useEffect(() => {
     const fetchData = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
 
+      //get display name from supabase user metadata, default to "Chef" if not set
       setDisplayName(user.user_metadata?.display_name ?? "Chef");
 
+      //fetch user stats from supabase and set in state
       const { data: statsData } = await supabase
         .from("user_stats")
         .select("level, total_xp, daily_streak")
@@ -51,6 +57,7 @@ export default function DashboardPage() {
 
       if (statsData) setStats(statsData);
 
+      //fetch count of completed recipes for this user
       const { count } = await supabase
         .from("user_progress")
         .select("*", { count: "exact", head: true })
@@ -59,6 +66,7 @@ export default function DashboardPage() {
 
       setRecipesCount(count ?? 0);
 
+      //fetch 3 most recently completed recipes for this user to show in recent activity
       const { data: progressData } = await supabase
         .from("user_progress")
         .select("recipe_id, completed_at")
@@ -77,6 +85,7 @@ export default function DashboardPage() {
         if (recipesData) setRecentRecipes(recipesData);
       }
 
+      //pick random beginner recipe as the daily challenge each day
       const { data: challengeData } = await supabase
         .from("recipes")
         .select("id, name, difficulty")
@@ -94,16 +103,19 @@ export default function DashboardPage() {
     fetchData();
   }, []);
 
+  //signout function to clear session and redirect to login page
   const handleLogout = async () => {
     await supabase.auth.signOut();
     router.push("/");
   };
 
+  //calculate XP progress for XP bar 
   const xpInLevel = stats.total_xp % 1000;
   const xpPercent = (xpInLevel / 1000) * 100;
 
   return (
     <main className="dash-page">
+      {/*sidebar with logo and navigation links to other sections */}
       <aside className="dash-sidebar">
         <div className="dash-logo">
           <Image src="/images/Logo.png" alt="Kitchen Genie" width={160} height={160} priority />
@@ -116,8 +128,10 @@ export default function DashboardPage() {
           <button className="dash-btn" onClick={handleLogout}>LOG OUT</button>
         </nav>
       </aside>
-
+      {/*main content area with user stats, recent activity, and daily challenge */}
       <section className="dash-main">
+
+        {/*top bar with level, XP bar, and XP text */}
         <div className="dash-topbar">
           <div className="dash-lvl">LVL {stats.level}</div>
           <div className="dash-xpbar">
@@ -125,7 +139,7 @@ export default function DashboardPage() {
           </div>
           <div className="dash-xptext">{xpInLevel}/1000 XP</div>
         </div>
-
+        {/*hero welcome message andmain content area */}
         <div className="dash-content">
           <div className="dash-hero">
             <h1 className="dash-title">
@@ -134,7 +148,7 @@ export default function DashboardPage() {
             <h2 className="dash-subtitle">CHALLENGE YOURSELF</h2>
             <p className="dash-desc">Choose your next mission to earn XP.</p>
           </div>
-
+          {/*stats section, all values fetched from supabase */}
           <div className="dash-stats">
             <div className="dash-stat">
               <div className="dash-stat-label">LEVEL</div>
@@ -155,7 +169,10 @@ export default function DashboardPage() {
           </div>
         </div>
 
+        {/*bottom row, detaily challenge and recently completed recipes */}
         <div className="dash-bottom">
+
+          {/*daily challenge section, random beginner recipe from supabaase */}
           <div className="dash-challenge">
             <div className="dash-challenge-tag">⚡ DAILY CHALLENGE</div>
             <div className="dash-challenge-title">
@@ -175,6 +192,7 @@ export default function DashboardPage() {
             </div>
           </div>
 
+          {/*recent activity section showing 3 most recently completed recipes with image, name, and time, all fetched from supabase */}
           <div className="dash-recent">
             <div className="dash-recent-title">RECENTLY COMPLETED</div>
             <div className="dash-recent-list">

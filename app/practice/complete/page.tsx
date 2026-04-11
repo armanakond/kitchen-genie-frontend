@@ -1,3 +1,8 @@
+//quest complete page, shows score and mistakes, links to replay or dashboard
+//fetches recipe name and saves progress to supabase on load, including stars earned and xp gained based on mistakes
+//stars are calculated: 3 stars = 0 mistakes, 2 stars = 1-3 mistakes, 1 star = 4-5 mistakes, 0 stars = 6 mistakes
+//wrapped in suspense because useSearchParams needs it next.js
+
 "use client";
 
 import Image from "next/image";
@@ -13,13 +18,16 @@ function QuestCompleteContent() {
   const [recipeName, setRecipeName] = useState("");
   const [saved, setSaved] = useState(false);
 
+  //calculate stars and xp based on mistakes
+  //0 mistakes = 3 stars, 1-3 mistakes = 2 stars, 4-5 mistakes = 1 star, 6 mistakes = 0 stars
   const stars = mistakes === 0 ? 3 : mistakes <= 3 ? 2 : mistakes <= 5 ? 1 : 0; //so 3 stars = 0 mistakes, 2 stars = 1-3 mistakes and 1 star = 4-5 mistakes, anything above = 0
   const xp = stars === 3 ? 100 : stars === 2 ? 75 : stars === 1 ? 50 : 0;
 
+  //fetch recipe name and save progress to supabase on load
   useEffect(() => {
     const saveProgress = async () => {
       if (saved) return;
-
+      //fetch recipe name from supabase using recipeId
       const { data: recipeData } = await supabase
         .from("recipes")
         .select("name")
@@ -31,6 +39,7 @@ function QuestCompleteContent() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user || !recipeId) return;
 
+      //save progress to supabase, upsert to user_progress, updates if recipe already completed before, otherwise inserts new record
       await supabase
         .from("user_progress")
         .upsert({
@@ -42,6 +51,8 @@ function QuestCompleteContent() {
           completed_at: new Date().toISOString(),
         }, { onConflict: "user_id,recipe_id" });
 
+      //update user stats - add xp to total_xp, recalculate level (every 1000 xp = 1 level), and update last_active date to today
+      //might change  xp system so its more dynamic instead of it being 1000 i would increment xp per level so 1000 lvl 1 then 1200 for lvl 2 etc
       const { data: statsData } = await supabase
         .from("user_stats")
         .select("total_xp, level")
@@ -98,7 +109,7 @@ function QuestCompleteContent() {
         {mistakes === 0 ? "🏆 Perfect — no mistakes!" : `${mistakes} mistake${mistakes > 1 ? "s" : ""} made`}
       </p>
 
-      {/* actions */}
+      {/* actions/navigation buttons */}
       <div className="complete-actions">
         <Link href="/dashboard" className="complete-btn">MENU</Link>
         <Link href={`/practice/beginner/${recipeId}`} className="complete-btn complete-btn--gold">REPLAY</Link>
@@ -107,6 +118,7 @@ function QuestCompleteContent() {
   );
 }
 
+//suspense wrapper required for useSearchparams in Next.js app router
 export default function QuestCompletePage() {
   return (
     <Suspense fallback={

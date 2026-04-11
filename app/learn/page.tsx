@@ -1,3 +1,6 @@
+//learn home page, lets users pick between recipe detail and quick recipes paths
+
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,8 +17,10 @@ export default function LearnPage() {
           <Image src="/images/Logo.png" alt="Kitchen Genie" width={90} height={90} priority />
         </div>
       </header>
-
+      {/* cards for recipe detail and quick recipes paths */}
       <section className="learn-cards">
+
+        {/* recipe detail card, provides detailed instructions and tips */}
         <div className="learn-card">
           <div className="learn-card-title">RECIPE DETAIL</div>
           <p className="learn-card-desc">
@@ -25,7 +30,7 @@ export default function LearnPage() {
             CHOOSE PATH
           </Link>
         </div>
-
+        {/* quick recipes card, fast simple meals for busy schedules */}
         <div className="learn-card">
           <div className="learn-card-title">QUICK RECIPES</div>
           <p className="learn-card-desc">

@@ -1,3 +1,6 @@
+//login page allows users to sign in with email and password
+//supabase auth signInWithPassword and redirects to dashboard on success
+
 "use client";
 
 import Image from "next/image";
@@ -7,7 +10,8 @@ import { supabase } from "@/lib/supabase";
 
 export default function LoginPage() {
   const router = useRouter();
-
+  //handles form submission 
+  //authenticates user with supabase and redirects to dashboard on success
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -20,22 +24,23 @@ export default function LoginPage() {
       alert(error.message);
       return;
     }
-
+    //redirect to dashboard on successful login
     router.push("/dashboard");
   };
 
   return (
     <main className="screen authScreen">
+      {/*logo */}
       <header className="brand">
         <Image src="/images/logo.png" alt="Kitchen Genie logo" width={200} height={200} priority />
       </header>
-
+      {/*Login form */}
       <section className="authCard" aria-label="Log into your account">
         <div className="authCardHeader">
           <h1 className="authTitle">WELCOME BACK</h1>
           <p className="authSubtitle">Welcome back. Please enter your details.</p>
         </div>
-
+        {/*Form with email and password fields, submit button, and forgot password link */}
         <form className="authForm" onSubmit={handleSubmit}>
           <input
             className="authInput"

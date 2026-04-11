@@ -1,7 +1,12 @@
+//practice mode selection page, allows users to select difficulty
+//each difficulty routes to recipe selection page thjen to the game
+
 import Image from "next/image";
 import Link from "next/link";
 
 export default function PracticePage() {
+
+  //difficulty paths
   const paths = [
     {
       title: "BEGINNER",
@@ -39,11 +44,14 @@ export default function PracticePage() {
         </div>
       </header>
 
+      {/*difficulty selection cards */}
       <section className="prac-cards">
         {paths.map((p) => (
           <div key={p.title} className="prac-card">
             <div className="prac-card-title">{p.title}</div>
             <p className="prac-card-desc">{p.desc}</p>
+
+            {/*hearts showing difficulty (more hearts = harder) */}
             <div className="prac-hearts">
               {Array.from({ length: p.hearts }).map((_, i) => (
                 <Image

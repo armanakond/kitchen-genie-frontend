@@ -1,3 +1,8 @@
+//practice intermediate selection page
+//fetches all intermediate recipes from supabase and displays in grid
+//each card links to game page for that recipe using its supabase UUID
+
+
 "use client";
 
 import Image from "next/image";
@@ -17,7 +22,7 @@ export default function PracticeIntermediatePage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
-
+  //fetch intermediate recipes from supabase on load
   useEffect(() => {
     const fetchRecipes = async () => {
       const { data, error } = await supabase
@@ -37,7 +42,7 @@ export default function PracticeIntermediatePage() {
 
     fetchRecipes();
   }, []);
-
+  //filter recipes based on search query
   const filtered = recipes.filter((r) =>
     r.name.toLowerCase().includes(search.toLowerCase())
   );
@@ -54,7 +59,7 @@ export default function PracticeIntermediatePage() {
           <Image src="/images/Logo.png" alt="Kitchen Genie" width={90} height={90} priority />
         </div>
       </header>
-
+      {/*search bar to filter recipes by name */}
       <div className="rdr-search-row">
         <span className="rdr-search-icon">🔍</span>
         <input
@@ -65,12 +70,13 @@ export default function PracticeIntermediatePage() {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-
+      {/*recipe grid, showing filtered recipes */}
       {loading ? (
         <div className="rdr-loading">Loading recipes...</div>
       ) : (
         <div className="rdr-grid">
           {filtered.map((recipe) => (
+            //each card links to /practice/intermediate/[recipe id]
             <Link
               key={recipe.id}
               href={`/practice/intermediate/${recipe.id}`}

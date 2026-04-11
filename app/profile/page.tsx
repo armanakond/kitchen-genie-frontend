@@ -1,3 +1,7 @@
+//profile settings page, allows users to update display name and password
+//uses supabase auth updateUser to update both name and password changes
+//fetches current user data from Supabase on load to populate form fields
+
 "use client";
 
 import Image from "next/image";
@@ -8,14 +12,19 @@ import { supabase } from "@/lib/supabase";
 
 export default function ProfilePage() {
   const router = useRouter();
+
+  //state for display name and password fields
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  //feedback states, shows success message after saving changes
   const [nameSaved, setNameSaved] = useState(false);
   const [passwordSaved, setPasswordSaved] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  //fetch user data from supabase on load to populate form fields
   useEffect(() => {
     const getUser = async () => {
       const { data: { user } } = await supabase.auth.getUser();
@@ -26,7 +35,7 @@ export default function ProfilePage() {
     };
     getUser();
   }, []);
-
+  //updates display name in supabase user_metadata, shows success message on save
   const handleUpdateName = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -42,13 +51,17 @@ export default function ProfilePage() {
       return;
     }
 
+    //show saved confirmation for 3 seconds
     setNameSaved(true);
     setTimeout(() => setNameSaved(false), 3000);
   };
 
+  //handles password update, checks for matching and length before calling supabase updateUser to change password
   const handleUpdatePassword = async (e: React.FormEvent) => {
     e.preventDefault();
 
+
+    //client side validation
     if (newPassword !== confirmPassword) {
       alert("Passwords do not match");
       return;
@@ -69,7 +82,7 @@ export default function ProfilePage() {
       alert(error.message);
       return;
     }
-
+    //clear password fields and show saved confirmation for 3 seconds
     setNewPassword("");
     setConfirmPassword("");
     setPasswordSaved(true);
@@ -90,7 +103,7 @@ export default function ProfilePage() {
 
       <div className="profile-body">
 
-        {/* account info */}
+        {/* account info, read only section */}
         <div className="profile-section">
           <h2 className="profile-section-title">ACCOUNT INFO</h2>
           <div className="profile-email-row">
@@ -99,7 +112,7 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* display name */}
+        {/* display name, editable section */}
         <div className="profile-section">
           <h2 className="profile-section-title">DISPLAY NAME</h2>
           <form className="profile-form" onSubmit={handleUpdateName}>
@@ -117,7 +130,7 @@ export default function ProfilePage() {
           </form>
         </div>
 
-        {/* change password */}
+        {/* change password, editable section */}
         <div className="profile-section">
           <h2 className="profile-section-title">CHANGE PASSWORD</h2>
           <form className="profile-form" onSubmit={handleUpdatePassword}>
@@ -137,6 +150,7 @@ export default function ProfilePage() {
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
+            {/*button toggles to show saved confirmation */}
             <button className="profile-btn" type="submit" disabled={loading}>
               {passwordSaved ? "✓ SAVED!" : "UPDATE PASSWORD"}
             </button>
