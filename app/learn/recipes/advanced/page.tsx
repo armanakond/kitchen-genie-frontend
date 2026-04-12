@@ -1,33 +1,49 @@
+// app/learn/recipes/advanced/page.tsx
+// Advanced recipe detail page for the learn section
+// Fetches all ADVANCED recipes from Supabase and displays them as a grid
+
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
 
-// Later this will come from Supabase
-const RECIPES = [
-  { id: "beef-wellington", name: "Beef Wellington", time: "90 min", img: "/images/recipes/beef-wellington.jpg" },
-  { id: "homemade-lasagna", name: "Homemade Lasagna", time: "75 min", img: "/images/recipes/homemade-lasagna.jpg" },
-  { id: "chicken-parmesan", name: "Chicken Parmesan", time: "45 min", img: "/images/recipes/chicken-parmesan.jpg" },
-  { id: "lamb-curry", name: "Lamb Curry", time: "60 min", img: "/images/recipes/lamb-curry.jpg" },
-  { id: "seafood-paella", name: "Seafood Paella", time: "50 min", img: "/images/recipes/seafood-paella.jpg" },
-  { id: "ramen", name: "Ramen", time: "2-3 hrs", img: "/images/recipes/ramen.jpg" },
-  { id: "salmon-en-croute", name: "Salmon en Croute", time: "45 min", img: "/images/recipes/salmon-en-croute.jpg" },
-  { id: "chocolate-souffle", name: "Chocolate Souffle", time: "40 min", img: "/images/recipes/chocolate-souffle.jpg" },
-  { id: "homemade-gnocchi", name: "Homemade Gnocchi", time: "60 min", img: "/images/recipes/homemade-gnocchi.jpg" },
-];
+type Recipe = {
+  id: string;
+  name: string;
+  time_minutes: number;
+  image_url: string;
+};
 
-export default function AdvancedRecipesPage() {
+export default function LearnAdvancedPage() {
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  const filtered = RECIPES.filter((r) =>
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      const { data, error } = await supabase
+        .from("recipes")
+        .select("id, name, time_minutes, image_url")
+        .eq("difficulty", "ADVANCED")
+        .order("name");
+
+      if (error) { console.error(error); return; }
+      setRecipes(data ?? []);
+      setLoading(false);
+    };
+    fetchRecipes();
+  }, []);
+
+  const filtered = recipes.filter((r) =>
     r.name.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
     <main className="rdr-page">
       <header className="rdr-header">
-        <Link href="/learn/recipes" className="rdr-home-btn" aria-label="Back to menu">
+        <Link href="/learn/recipes" className="rdr-home-btn" aria-label="Back">
           <span style={{ fontSize: "28px" }}>🏠</span>
           <span>BACK TO MENU</span>
         </Link>
@@ -48,17 +64,21 @@ export default function AdvancedRecipesPage() {
         />
       </div>
 
-      <div className="rdr-grid">
-        {filtered.map((recipe) => (
-          <Link key={recipe.id} href={`/learn/recipes/advanced/${recipe.id}`} className="rdr-card">
-            <div className="rdr-card-img-wrap">
-              <img src={recipe.img} alt={recipe.name} className="rdr-card-img" />
-            </div>
-            <div className="rdr-card-name">{recipe.name}</div>
-            <div className="rdr-card-time">Time: &nbsp;{recipe.time}</div>
-          </Link>
-        ))}
-      </div>
+      {loading ? (
+        <div className="rdr-loading">Loading recipes...</div>
+      ) : (
+        <div className="rdr-grid">
+          {filtered.map((recipe) => (
+            <Link key={recipe.id} href={`/learn/recipes/advanced/${recipe.id}`} className="rdr-card">
+              <div className="rdr-card-img-wrap">
+                <img src={recipe.image_url} alt={recipe.name} className="rdr-card-img" />
+              </div>
+              <div className="rdr-card-name">{recipe.name}</div>
+              <div className="rdr-card-time">⏱ {recipe.time_minutes} min</div>
+            </Link>
+          ))}
+        </div>
+      )}
     </main>
   );
 }
