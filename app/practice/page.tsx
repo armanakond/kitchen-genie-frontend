@@ -35,7 +35,7 @@ export default function PracticePage() {
     <main className="prac-page">
       <header className="prac-header">
         <Link href="/dashboard" className="prac-home-btn" aria-label="Back to menu">
-          <span className="prac-home-icon">🏠</span>
+          <span className="prac-home-icon">←</span>
           <span>BACK TO MENU</span>
         </Link>
         <h1 className="prac-title">PRACTICE MODE</h1>
