@@ -155,7 +155,7 @@ export default function PracticeGamePage({
           <div className="game-fail-box">
             <div className="game-fail-icon">💀</div>
             <h2 className="game-fail-title">OOPS!</h2>
-            <p className="game-fail-desc">You made 6 mistakes. The recipe has been reset.</p>
+            <p className="game-fail-desc">RECIPE RESET YOU MADE 6 MISTAKES 😔</p>
             <div className="game-fail-actions">
               <button className="game-fail-btn game-fail-btn--retry" onClick={() => setShowFail(false)}>
                 🔄 RETRY

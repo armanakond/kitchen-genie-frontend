@@ -17,6 +17,8 @@ function QuestCompleteContent() {
   const mistakes = parseInt(searchParams.get("mistakes") ?? "0");
   const [recipeName, setRecipeName] = useState("");
   const [saved, setSaved] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
+  const [bookmarking, setBookmarking] = useState(false);
 
   //calculate stars and xp based on mistakes
   //0 mistakes = 3 stars, 1-3 mistakes = 2 stars, 4-5 mistakes = 1 star, 6 mistakes = 0 stars
@@ -74,6 +76,25 @@ function QuestCompleteContent() {
     if (recipeId) saveProgress();
   }, [recipeId]);
 
+  // Saves recipe to saved_recipes table — upsert prevents duplicates
+  const handleSave = async () => {
+    setBookmarking(true);
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    await supabase
+      .from("saved_recipes")
+      .upsert({
+        user_id: user.id,
+        recipe_id: recipeId,
+      }, { onConflict: "user_id,recipe_id" });
+
+    setBookmarked(true);
+    setBookmarking(false);
+  };
+
+
+
   return (
     <main className="complete-page">
       {/* logo */}
@@ -112,6 +133,22 @@ function QuestCompleteContent() {
       {/* actions/navigation buttons */}
       <div className="complete-actions">
         <Link href="/dashboard" className="complete-btn">MENU</Link>
+        <button
+          onClick={handleSave}
+          className="complete-btn"
+          disabled={bookmarked || bookmarking}
+          style={{
+            background: bookmarked ? "#2a7a2a" : "rgba(255,255,255,0.08)",
+            border: bookmarked ? "1px solid #2a7a2a" : "1px solid rgba(255,255,255,0.18)",
+            color: "white",
+            cursor: bookmarked ? "default" : "pointer",
+            fontWeight: 900,
+            letterSpacing: "2px",
+            fontSize: "13px",
+          }}
+        >
+          {bookmarked ? "✓ SAVED!" : bookmarking ? "SAVING..." : "SAVE"}
+        </button>
         <Link href={`/practice/beginner/${recipeId}`} className="complete-btn complete-btn--gold">REPLAY</Link>
       </div>
     </main>

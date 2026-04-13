@@ -44,7 +44,7 @@ export default function LearnIntermediatePage() {
     <main className="rdr-page">
       <header className="rdr-header">
         <Link href="/learn/recipes" className="rdr-home-btn" aria-label="Back">
-          <span style={{ fontSize: "28px" }}>🏠</span>
+          <span style={{ fontSize: "28px" }}>←</span>
           <span>BACK TO MENU</span>
         </Link>
         <h1 className="rdr-title">INTERMEDIATE RECIPES</h1>

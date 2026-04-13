@@ -9,7 +9,7 @@ export default function LearnPage() {
     <main className="learn-page">
       <header className="learn-header">
         <Link href="/dashboard" className="learn-home-btn" aria-label="Back to menu">
-          <span className="learn-home-icon">🏠</span>
+          <span className="learn-home-icon">←</span>
           <span>BACK TO MENU</span>
         </Link>
         <h1 className="learn-title">LEARN TO COOK</h1>
