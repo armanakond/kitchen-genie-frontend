@@ -1768,8 +1768,8 @@ body {
 }
 
 .game-dropzone {
-  width: 130px;
-  height: 170px;
+  width: 100px;
+  height: 200px;
   border: 2px dashed rgba(255, 255, 255, 0.25);
   border-radius: 12px;
   background: rgba(0, 0, 0, 0.3);
