@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -50,6 +49,11 @@ html,
 body {
   height: 100%;
   margin: 0;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
 }
 
 .kg-body {
@@ -59,6 +63,48 @@ body {
     radial-gradient(900px 500px at 50% 10%, rgba(255, 255, 255, 0.06), transparent 60%),
     radial-gradient(700px 500px at 10% 90%, rgba(176, 122, 28, 0.10), transparent 55%),
     linear-gradient(180deg, var(--bg-2), var(--bg-1));
+}
+
+/* to prevent horizontal overflow on all pages */
+.prac-page,
+.learn-page,
+.saved-page,
+.rdr-page,
+.qr-page,
+.steps-page,
+.game-page,
+.profile-page,
+.complete-page,
+.tut-page {
+  overflow-x: hidden;
+}
+
+/* BACK BUTTON */
+
+.btn-back {
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 18px;
+  font-weight: 900;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.btn-back:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
 
 /* HOME PAGE */
@@ -154,7 +200,7 @@ body {
   font-size: 12px;
 }
 
-/* AUTH PAGES */
+/* AUTH PAGES  */
 
 .authScreen {
   grid-template-rows: auto 1fr;
@@ -638,7 +684,7 @@ body {
 }
 
 .tut-header {
-  height: 110px;
+  height: clamp(70px, 10vh, 110px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -657,7 +703,8 @@ body {
 .tut-logo {
   position: absolute;
   right: 24px;
-  top: 18px;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
 }
@@ -711,7 +758,7 @@ body {
 }
 
 .tut-btn {
-  width: 150px;
+  width: clamp(110px, 12vw, 150px);
   height: 42px;
   display: inline-flex;
   align-items: center;
@@ -731,29 +778,6 @@ body {
   background: rgba(255, 255, 255, 0.1);
 }
 
-.tut-back {
-  position: absolute;
-  left: 24px;
-  top: 22px;
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: white;
-  font-size: 22px;
-  font-weight: 900;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  transition: 0.2s;
-}
-
-.tut-back:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
 /* PRACTICE PAGE */
 
 .prac-page {
@@ -765,7 +789,7 @@ body {
 }
 
 .prac-header {
-  height: 100px;
+  height: clamp(70px, 10vh, 100px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -784,7 +808,8 @@ body {
 .prac-logo {
   position: absolute;
   right: 24px;
-  top: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .prac-cards {
@@ -793,16 +818,16 @@ body {
   align-items: center;
   justify-content: center;
   gap: clamp(16px, 2.5vw, 28px);
-  padding: clamp(30px, 5vw, 60px) clamp(40px, 8vw, 120px);
+  padding: clamp(20px, 4vw, 60px) clamp(20px, 6vw, 120px);
   flex-wrap: wrap;
 }
 
 .prac-card {
-  width: clamp(200px, 25vw, 320px);
+  width: clamp(180px, 22vw, 320px);
   background: rgba(0, 0, 0, 0.35);
   border: 1px solid rgba(201, 138, 28, 0.55);
   border-radius: 14px;
-  padding: clamp(20px, 2.5vw, 32px) clamp(16px, 2vw, 24px);
+  padding: clamp(18px, 2vw, 32px) clamp(14px, 1.8vw, 24px);
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -869,7 +894,7 @@ body {
 }
 
 .learn-header {
-  height: 100px;
+  height: clamp(70px, 10vh, 100px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -888,7 +913,8 @@ body {
 .learn-logo {
   position: absolute;
   right: 24px;
-  top: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .learn-cards {
@@ -897,17 +923,16 @@ body {
   align-items: center;
   justify-content: center;
   gap: clamp(16px, 2.5vw, 32px);
-  padding: clamp(30px, 5vw, 60px) clamp(40px, 8vw, 120px);
+  padding: clamp(20px, 4vw, 60px) clamp(20px, 6vw, 120px);
   flex-wrap: wrap;
 }
 
 .learn-card {
-  width: clamp(200px, 28vw, 380px);
-  max-height: 280px;
+  width: clamp(180px, 25vw, 380px);
   background: rgba(0, 0, 0, 0.35);
   border: 1px solid rgba(201, 138, 28, 0.55);
   border-radius: 14px;
-  padding: clamp(24px, 3vw, 36px) clamp(20px, 2.5vw, 32px);
+  padding: clamp(20px, 2.5vw, 36px) clamp(16px, 2vw, 32px);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -957,13 +982,14 @@ body {
 }
 
 .qr-header {
-  height: 100px;
+  height: clamp(70px, 10vh, 100px);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   padding: 0 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
 }
 
 .qr-title {
@@ -976,14 +1002,15 @@ body {
 .qr-logo {
   position: absolute;
   right: 24px;
-  top: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .qr-search-row {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 24px 32px 8px;
+  padding: clamp(16px, 2vw, 24px) clamp(20px, 3vw, 32px) 8px;
 }
 
 .qr-search-icon {
@@ -992,7 +1019,7 @@ body {
 }
 
 .qr-search {
-  width: clamp(200px, 28vw, 320px);
+  width: clamp(160px, 28vw, 320px);
   height: 42px;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1014,9 +1041,9 @@ body {
 
 .qr-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(clamp(160px, 18vw, 220px), 1fr));
-  gap: clamp(16px, 2vw, 28px);
-  padding: clamp(16px, 2vw, 24px) clamp(20px, 4vw, 40px) 40px;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(140px, 16vw, 220px), 1fr));
+  gap: clamp(12px, 2vw, 28px);
+  padding: clamp(12px, 2vw, 24px) clamp(16px, 3vw, 40px) 40px;
 }
 
 .qr-card {
@@ -1075,7 +1102,7 @@ body {
 }
 
 .steps-header {
-  height: 100px;
+  height: clamp(70px, 10vh, 100px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1095,7 +1122,8 @@ body {
 .steps-logo {
   position: absolute;
   right: 24px;
-  top: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .steps-recipe-name {
@@ -1110,7 +1138,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(16px, 2vw, 28px);
-  padding: 0 clamp(20px, 4vw, 60px);
+  padding: 0 clamp(16px, 4vw, 60px);
 }
 
 .steps-panel {
@@ -1162,7 +1190,7 @@ body {
 }
 
 .rdr-header {
-  height: 100px;
+  height: clamp(70px, 10vh, 100px);
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -1171,7 +1199,6 @@ body {
   padding: 0 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
-
 
 .rdr-title {
   margin: 0;
@@ -1183,14 +1210,15 @@ body {
 .rdr-logo {
   position: absolute;
   right: 24px;
-  top: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .rdr-search-row {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 20px 32px 8px;
+  padding: clamp(14px, 2vw, 20px) clamp(20px, 3vw, 32px) 8px;
   flex-shrink: 0;
 }
 
@@ -1200,7 +1228,7 @@ body {
 }
 
 .rdr-search {
-  width: clamp(200px, 28vw, 320px);
+  width: clamp(160px, 28vw, 320px);
   height: 42px;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1223,9 +1251,9 @@ body {
 .rdr-grid {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(clamp(160px, 18vw, 220px), 1fr));
-  gap: clamp(16px, 2vw, 24px);
-  padding: clamp(16px, 2vw, 24px) clamp(20px, 4vw, 40px) 40px;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(140px, 16vw, 220px), 1fr));
+  gap: clamp(12px, 2vw, 24px);
+  padding: clamp(12px, 2vw, 24px) clamp(16px, 3vw, 40px) 40px;
   overflow-y: auto;
   align-content: start;
 }
@@ -1298,6 +1326,20 @@ body {
     flex-direction: column;
     align-items: center;
   }
+
+  .game-body {
+    flex-direction: column;
+  }
+
+  .game-quest {
+    width: 100%;
+  }
+
+  .game-tray {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 160px;
+  }
 }
 
 /* SAVED RECIPES PAGE */
@@ -1311,7 +1353,7 @@ body {
 }
 
 .saved-header {
-  height: 100px;
+  height: clamp(70px, 10vh, 100px);
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -1320,7 +1362,6 @@ body {
   padding: 0 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
-
 
 .saved-title {
   margin: 0;
@@ -1332,7 +1373,8 @@ body {
 .saved-logo {
   position: absolute;
   right: 24px;
-  top: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .saved-body {
@@ -1340,7 +1382,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: clamp(24px, 3vw, 40px) clamp(24px, 5vw, 60px);
+  padding: clamp(20px, 3vw, 40px) clamp(20px, 5vw, 60px);
 }
 
 .saved-top {
@@ -1419,8 +1461,8 @@ body {
 
 .saved-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(clamp(150px, 16vw, 200px), 1fr));
-  gap: clamp(14px, 2vw, 22px);
+  grid-template-columns: repeat(auto-fill, minmax(clamp(130px, 14vw, 200px), 1fr));
+  gap: clamp(12px, 2vw, 22px);
 }
 
 .saved-card {
@@ -1504,7 +1546,7 @@ body {
 }
 
 .profile-header {
-  height: 100px;
+  height: clamp(70px, 10vh, 100px);
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -1524,7 +1566,8 @@ body {
 .profile-logo {
   position: absolute;
   right: 24px;
-  top: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .profile-body {
@@ -1532,7 +1575,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: clamp(24px, 3vw, 40px) clamp(24px, 5vw, 60px);
+  padding: clamp(20px, 3vw, 40px) clamp(20px, 5vw, 60px);
   max-width: 600px;
   width: 100%;
 }
@@ -1541,7 +1584,7 @@ body {
   background: rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(201, 138, 28, 0.45);
   border-radius: 14px;
-  padding: clamp(20px, 2.5vw, 30px);
+  padding: clamp(18px, 2.5vw, 30px);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -1637,7 +1680,7 @@ body {
 }
 
 .game-header {
-  height: 90px;
+  height: clamp(70px, 9vh, 90px);
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -1645,24 +1688,6 @@ body {
   position: relative;
   padding: 0 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.game-back {
-  position: absolute;
-  left: 24px;
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: white;
-  font-size: 20px;
-  font-weight: 900;
-  text-decoration: none;
-  transition: 0.2s;
 }
 
 .game-title {
@@ -1675,37 +1700,39 @@ body {
 .game-logo {
   position: absolute;
   right: 24px;
-  top: 5px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .game-body {
   flex: 1;
   display: flex;
-  gap: 24px;
-  padding: 24px 32px;
+  gap: clamp(12px, 2vw, 24px);
+  padding: clamp(12px, 2vw, 24px) clamp(16px, 2.5vw, 32px);
   min-height: 0;
 }
 
 .game-quest {
-  width: 180px;
+  width: clamp(160px, 16vw, 240px);
   flex-shrink: 0;
   background: rgba(0, 0, 0, 0.35);
   border: 1px solid rgba(201, 138, 28, 0.45);
   border-radius: 12px;
-  padding: 18px 16px;
+  padding: clamp(14px, 1.5vw, 22px) clamp(12px, 1.2vw, 18px);
+  overflow-y: auto;
 }
 
 .game-quest-title {
   font-weight: 900;
   letter-spacing: 1px;
-  font-size: 14px;
-  margin-bottom: 8px;
+  font-size: clamp(13px, 1.3vw, 16px);
+  margin-bottom: 10px;
 }
 
 .game-quest-recipe {
   color: rgba(255, 255, 255, 0.7);
-  font-size: 12px;
-  margin-bottom: 14px;
+  font-size: clamp(11px, 1.1vw, 13px);
+  margin-bottom: 16px;
   line-height: 1.5;
 }
 
@@ -1715,14 +1742,14 @@ body {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .game-quest-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 11px;
+  gap: 10px;
+  font-size: clamp(11px, 1.1vw, 13px);
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -1731,15 +1758,15 @@ body {
 }
 
 .game-quest-dot {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   border-radius: 999px;
   background: #c98a1c;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 9px;
+  font-size: 10px;
   color: #1a1207;
   font-weight: 900;
 }
@@ -1750,12 +1777,12 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 24px;
+  gap: clamp(16px, 2.5vw, 28px);
 }
 
 .game-prompt {
   margin: 0;
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(16px, 2vw, 26px);
   font-weight: 700;
   letter-spacing: 1px;
   text-align: center;
@@ -1764,12 +1791,12 @@ body {
 .game-drop-row {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: clamp(16px, 2.5vw, 32px);
 }
 
 .game-dropzone {
-  width: 100px;
-  height: 200px;
+  width: clamp(130px, 12vw, 180px);
+  height: clamp(160px, 15vw, 220px);
   border: 2px dashed rgba(255, 255, 255, 0.25);
   border-radius: 12px;
   background: rgba(0, 0, 0, 0.3);
@@ -1800,15 +1827,16 @@ body {
 }
 
 .game-drop-hint {
-  font-size: 11px;
+  font-size: clamp(11px, 1.1vw, 13px);
   font-weight: 900;
   letter-spacing: 1.5px;
   color: rgba(255, 255, 255, 0.6);
-  max-width: 200px;
+  max-width: 220px;
+  line-height: 1.6;
 }
 
 .game-progress {
-  font-size: clamp(10px, 1vw, 12px);
+  font-size: clamp(11px, 1.1vw, 14px);
   font-weight: 900;
   letter-spacing: 2px;
   color: rgba(255, 255, 255, 0.5);
@@ -1816,30 +1844,32 @@ body {
 
 .game-tray {
   flex-shrink: 0;
-  min-height: 160px;
+  min-height: clamp(160px, 18vh, 220px);
+  height: auto;
   background: rgba(0, 0, 0, 0.45);
   border-top: 1px solid rgba(255, 255, 255, 0.07);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  padding: 16px 24px;
+  gap: clamp(8px, 1.5vw, 20px);
+  padding: clamp(12px, 1.5vw, 20px) clamp(16px, 2.5vw, 32px);
   flex-wrap: wrap;
 }
 
 .game-card {
-  width: 110px;
-  height: 140px;
+  width: clamp(100px, 9vw, 145px);
+  height: clamp(130px, 12vw, 180px);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 6px 10px;
+  padding: clamp(6px, 0.8vw, 10px) clamp(4px, 0.6vw, 8px) clamp(8px, 1vw, 12px);
   cursor: grab;
   user-select: none;
   transition: transform 0.12s, opacity 0.15s;
   border: 1px solid rgba(0, 0, 0, 0.25);
+  flex-shrink: 0;
 }
 
 .game-card:active {
@@ -1865,13 +1895,13 @@ body {
 }
 
 .game-card-type {
-  font-size: 9px;
+  font-size: clamp(8px, 0.8vw, 11px);
   font-weight: 900;
   letter-spacing: 1.5px;
   color: rgba(255, 255, 255, 0.85);
   background: rgba(0, 0, 0, 0.28);
   border-radius: 4px;
-  padding: 2px 6px;
+  padding: 3px 8px;
   align-self: stretch;
   text-align: center;
 }
@@ -1882,22 +1912,31 @@ body {
 }
 
 .game-card-icon {
-  font-size: 34px;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-card-icon img {
+  width: clamp(36px, 3.5vw, 56px);
+  height: clamp(36px, 3.5vw, 56px);
+  object-fit: contain;
+  pointer-events: none;
 }
 
 .game-card-label {
-  font-size: 11px;
+  font-size: clamp(10px, 0.9vw, 13px);
   font-weight: 900;
   letter-spacing: 1px;
   color: rgba(255, 255, 255, 0.95);
+  text-align: center;
 }
 
 .game-card--action .game-card-label {
   color: #1a1207;
 }
 
-/* QUEST COMPLETE */
+/* QUEST COMPLETE  */
 
 .complete-page {
   min-height: 100vh;
@@ -1907,8 +1946,9 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 36px;
+  gap: clamp(20px, 4vw, 36px);
   position: relative;
+  padding: 80px 24px 24px;
 }
 
 .complete-logo {
@@ -1919,18 +1959,18 @@ body {
 
 .complete-title {
   margin: 0;
-  font-size: clamp(22px, 3vw, 32px);
+  font-size: clamp(20px, 3vw, 32px);
   font-weight: 900;
   letter-spacing: 4px;
 }
 
 .complete-stars {
   display: flex;
-  gap: 20px;
+  gap: clamp(10px, 2vw, 20px);
 }
 
 .complete-star {
-  font-size: clamp(50px, 8vw, 72px);
+  font-size: clamp(40px, 7vw, 72px);
   line-height: 1;
 }
 
@@ -1947,8 +1987,8 @@ body {
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 10px;
-  padding: 18px 52px;
-  font-size: clamp(18px, 2.2vw, 24px);
+  padding: clamp(12px, 2vw, 18px) clamp(24px, 5vw, 52px);
+  font-size: clamp(16px, 2.2vw, 24px);
   font-weight: 900;
   letter-spacing: 2px;
   display: flex;
@@ -1962,11 +2002,13 @@ body {
 
 .complete-actions {
   display: flex;
-  gap: 20px;
+  gap: clamp(10px, 2vw, 20px);
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .complete-btn {
-  width: 160px;
+  width: clamp(120px, 14vw, 160px);
   height: 48px;
   display: flex;
   align-items: center;
@@ -1978,8 +2020,12 @@ body {
   text-decoration: none;
   font-weight: 900;
   letter-spacing: 2px;
-  font-size: 13px;
+  font-size: clamp(11px, 1.1vw, 13px);
   transition: background 0.15s;
+}
+
+.complete-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .complete-recipe-name {
@@ -2010,6 +2056,8 @@ body {
   border-color: #e6a323;
 }
 
+/* GAME FAIL OVERLAY */
+
 .game-fail-overlay {
   position: fixed;
   inset: 0;
@@ -2035,7 +2083,7 @@ body {
   background: #1a0f2e;
   border: 2px solid #f44336;
   border-radius: 16px;
-  padding: 40px 48px;
+  padding: clamp(24px, 4vw, 40px) clamp(28px, 5vw, 48px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2080,6 +2128,8 @@ body {
   display: flex;
   gap: 16px;
   margin-top: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .game-fail-btn {
@@ -2113,29 +2163,6 @@ body {
   color: white;
 }
 
-/* BACK BUTTON */
-
-.btn-back {
-  position: absolute;
-  left: 24px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: white;
-  font-size: 18px;
-  font-weight: 900;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.btn-back:hover {
-  background: rgba(255, 255, 255, 0.12);
+.game-fail-btn--back:hover {
+  background: rgba(255, 255, 255, 0.14);
 }
