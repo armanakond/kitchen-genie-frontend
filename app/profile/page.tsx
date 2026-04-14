@@ -93,7 +93,7 @@ export default function ProfilePage() {
     <main className="profile-page">
       <header className="profile-header">
         <Link href="/dashboard" className="profile-back" aria-label="Back">
-          <span style={{ fontSize: "28px" }}>←</span>
+          <span className="btn-back">←</span>
         </Link>
         <h1 className="profile-title">PROFILE SETTINGS</h1>
         <div className="profile-logo">

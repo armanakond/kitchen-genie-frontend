@@ -11,7 +11,7 @@ export default function LearnPage() {
     <main className="learn-page">
       <header className="learn-header">
         <Link href="/dashboard" className="learn-home-btn" aria-label="Back to menu">
-          <span style={{ fontSize: "28px" }}>←</span>
+          <span className="btn-back">←</span>
         </Link>
         <h1 className="learn-title">LEARN TO COOK</h1>
         <div className="learn-logo">

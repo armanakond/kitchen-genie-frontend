@@ -32,7 +32,7 @@ export default function RecipeDetailSelectionPage() {
     <main className="prac-page">
       <header className="prac-header">
         <Link href="/learn" className="prac-home-btn" aria-label="Back">
-          <span style={{ fontSize: "28px" }}>←</span>
+          <span className="btn-back">←</span>
         </Link>
 
         <h1 className="prac-title">RECIPE DETAIL SELECTION</h1>

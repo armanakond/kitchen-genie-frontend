@@ -61,9 +61,7 @@ body {
     linear-gradient(180deg, var(--bg-2), var(--bg-1));
 }
 
-/* =====================================================
-   HOME PAGE
-   ===================================================== */
+/* HOME PAGE */
 
 .screen {
   min-height: 100vh;
@@ -156,9 +154,7 @@ body {
   font-size: 12px;
 }
 
-/* =====================================================
-   AUTH PAGES
-   ===================================================== */
+/* AUTH PAGES */
 
 .authScreen {
   grid-template-rows: auto 1fr;
@@ -297,9 +293,7 @@ body {
   text-decoration: underline;
 }
 
-/* =====================================================
-   DASHBOARD
-   ===================================================== */
+/* DASHBOARD */
 
 .dash-page {
   min-height: 100vh;
@@ -633,9 +627,7 @@ body {
   }
 }
 
-/* =====================================================
-   TUTORIAL
-   ===================================================== */
+/* TUTORIAL */
 
 .tut-page {
   min-height: 100vh;
@@ -762,9 +754,7 @@ body {
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* =====================================================
-   PRACTICE PAGE
-   ===================================================== */
+/* PRACTICE PAGE */
 
 .prac-page {
   min-height: 100vh;
@@ -782,30 +772,6 @@ body {
   position: relative;
   padding: 0 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.prac-home-btn {
-  position: absolute;
-  left: 24px;
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: white;
-  font-size: 20px;
-  font-weight: 900;
-  text-decoration: none;
-  transition: 0.2s;
-}
-
-
-
-.prac-home-icon {
-  font-size: 28px;
 }
 
 .prac-title {
@@ -892,9 +858,7 @@ body {
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* =====================================================
-   LEARN PAGE
-   ===================================================== */
+/* LEARN PAGE */
 
 .learn-page {
   min-height: 100vh;
@@ -912,24 +876,6 @@ body {
   position: relative;
   padding: 0 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.learn-home-btn {
-  position: absolute;
-  left: 24px;
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: white;
-  font-size: 20px;
-  font-weight: 900;
-  text-decoration: none;
-  transition: 0.2s;
 }
 
 .learn-title {
@@ -1000,9 +946,7 @@ body {
   background: #e6a323;
 }
 
-/* =====================================================
-   QUICK RECIPES
-   ===================================================== */
+/* QUICK RECIPES */
 
 .qr-page {
   min-height: 100vh;
@@ -1020,29 +964,6 @@ body {
   position: relative;
   padding: 0 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  flex-shrink: 0;
-}
-
-.qr-back {
-  position: absolute;
-  left: 44px;
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: white;
-  font-size: 20px;
-  font-weight: 900;
-  text-decoration: none;
-  transition: 0.2s;
-}
-
-.qr-back:hover {
-  background: rgba(255, 255, 255, 0.14);
 }
 
 .qr-title {
@@ -1141,9 +1062,7 @@ body {
   color: rgba(255, 255, 255, 0.55);
 }
 
-/* =====================================================
-   RECIPE STEPS
-   ===================================================== */
+/* RECIPE STEPS */
 
 .steps-page {
   min-height: 100vh;
@@ -1164,28 +1083,6 @@ body {
   padding: 0 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   flex-shrink: 0;
-}
-
-.steps-back {
-  position: absolute;
-  left: 24px;
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: white;
-  font-size: 20px;
-  font-weight: 900;
-  text-decoration: none;
-  transition: 0.2s;
-}
-
-.steps-back:hover {
-  background: rgba(255, 255, 255, 0.14);
 }
 
 .steps-title {
@@ -1254,9 +1151,7 @@ body {
   color: #c98a1c;
 }
 
-/* =====================================================
-   RECIPE DETAIL GRID (rdr)
-   ===================================================== */
+/* RECIPE DETAIL GRID (rdr) */
 
 .rdr-page {
   min-height: 100vh;
@@ -1277,23 +1172,6 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.rdr-home-btn {
-  position: absolute;
-  left: 24px;
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: white;
-  font-size: 20px;
-  font-weight: 900;
-  text-decoration: none;
-  transition: 0.2s;
-}
 
 .rdr-title {
   margin: 0;
@@ -1404,9 +1282,7 @@ body {
   font-weight: 900;
 }
 
-/* =====================================================
-   RESPONSIVE
-   ===================================================== */
+/* RESPONSIVE */
 
 @media (max-width: 700px) {
   .steps-cols {
@@ -1424,9 +1300,7 @@ body {
   }
 }
 
-/* =====================================================
-   SAVED RECIPES PAGE
-   ===================================================== */
+/* SAVED RECIPES PAGE */
 
 .saved-page {
   min-height: 100vh;
@@ -1445,24 +1319,6 @@ body {
   position: relative;
   padding: 0 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.saved-home-btn {
-  position: absolute;
-  left: 24px;
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: white;
-  font-size: 20px;
-  font-weight: 900;
-  text-decoration: none;
-  transition: 0.2s;
 }
 
 
@@ -1637,9 +1493,7 @@ body {
   letter-spacing: 1px;
 }
 
-/* =====================================================
-   PROFILE PAGE
-   ===================================================== */
+/* PROFILE PAGE */
 
 .profile-page {
   min-height: 100vh;
@@ -1658,28 +1512,6 @@ body {
   position: relative;
   padding: 0 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.profile-back {
-  position: absolute;
-  left: 24px;
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: white;
-  font-size: 20px;
-  font-weight: 900;
-  text-decoration: none;
-  transition: 0.2s;
-}
-
-.profile-back:hover {
-  background: rgba(255, 255, 255, 0.14);
 }
 
 .profile-title {
@@ -1794,9 +1626,7 @@ body {
   cursor: not-allowed;
 }
 
-/* =====================================================
-   GAME PAGE
-   ===================================================== */
+/* GAME PAGE */
 
 .game-page {
   min-height: 100vh;
@@ -1833,10 +1663,6 @@ body {
   font-weight: 900;
   text-decoration: none;
   transition: 0.2s;
-}
-
-.game-back:hover {
-  background: rgba(255, 255, 255, 0.14);
 }
 
 .game-title {
@@ -2071,9 +1897,7 @@ body {
   color: #1a1207;
 }
 
-/* =====================================================
-   QUEST COMPLETE
-   ===================================================== */
+/* QUEST COMPLETE */
 
 .complete-page {
   min-height: 100vh;
@@ -2156,10 +1980,6 @@ body {
   letter-spacing: 2px;
   font-size: 13px;
   transition: background 0.15s;
-}
-
-.complete-btn:hover {
-  background: rgba(255, 255, 255, 0.14);
 }
 
 .complete-recipe-name {
@@ -2293,6 +2113,29 @@ body {
   color: white;
 }
 
-.game-fail-btn--back:hover {
-  background: rgba(255, 255, 255, 0.14);
+/* BACK BUTTON */
+
+.btn-back {
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 18px;
+  font-weight: 900;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-back:hover {
+  background: rgba(255, 255, 255, 0.12);
 }

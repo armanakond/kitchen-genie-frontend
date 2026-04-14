@@ -51,7 +51,7 @@ export default function PracticeAdvancedPage() {
     <main className="rdr-page">
       <header className="rdr-header">
         <Link href="/practice" className="rdr-home-btn" aria-label="Back">
-          <span style={{ fontSize: "28px" }}>←</span>
+          <span className="btn-back">←</span>
         </Link>
         <h1 className="rdr-title">ADVANCED — CHOOSE RECIPE</h1>
         <div className="rdr-logo">
