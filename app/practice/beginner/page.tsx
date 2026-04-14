@@ -56,7 +56,6 @@ export default function PracticeBeginnerPage() {
       <header className="rdr-header">
         <Link href="/practice" className="rdr-home-btn" aria-label="Back">
           <span style={{ fontSize: "28px" }}>←</span>
-          <span>BACK TO MENU</span>
         </Link>
         <h1 className="rdr-title">BEGINNER — CHOOSE RECIPE</h1>
         <div className="rdr-logo">

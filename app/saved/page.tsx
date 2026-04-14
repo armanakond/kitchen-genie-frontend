@@ -88,8 +88,7 @@ export default function SavedRecipesPage() {
       {/* header */}
       <header className="saved-header">
         <Link href="/dashboard" className="saved-home-btn" aria-label="Back to menu">
-          <span className="saved-home-icon">←</span>
-          <span>BACK TO MENU</span>
+          <span style={{ fontSize: "28px" }}>←</span>
         </Link>
         <h1 className="saved-title">SAVED RECIPES</h1>
         <div className="saved-logo">

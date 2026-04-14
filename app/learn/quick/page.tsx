@@ -50,7 +50,7 @@ export default function QuickRecipesPage() {
     <main className="qr-page">
       <header className="qr-header">
         <Link href="/learn" className="qr-back" aria-label="Back">
-          <span>←</span>
+          <span style={{ fontSize: "28px" }}>←</span>
         </Link>
         <h1 className="qr-title">QUICK RECIPES</h1>
         <div className="qr-logo">

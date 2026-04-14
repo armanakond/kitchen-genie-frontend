@@ -787,16 +787,22 @@ body {
 .prac-home-btn {
   position: absolute;
   left: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 4px;
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 10px;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 20px;
   font-weight: 900;
-  letter-spacing: 1.5px;
+  text-decoration: none;
+  transition: 0.2s;
 }
+
+
 
 .prac-home-icon {
   font-size: 28px;
@@ -911,19 +917,19 @@ body {
 .learn-home-btn {
   position: absolute;
   left: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 4px;
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 10px;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 20px;
   font-weight: 900;
-  letter-spacing: 1.5px;
-}
-
-.learn-home-icon {
-  font-size: 28px;
+  text-decoration: none;
+  transition: 0.2s;
 }
 
 .learn-title {
@@ -1019,7 +1025,7 @@ body {
 
 .qr-back {
   position: absolute;
-  left: 24px;
+  left: 44px;
   width: 44px;
   height: 44px;
   border-radius: 999px;
@@ -1274,15 +1280,19 @@ body {
 .rdr-home-btn {
   position: absolute;
   left: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 4px;
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 10px;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 20px;
   font-weight: 900;
-  letter-spacing: 1.5px;
+  text-decoration: none;
+  transition: 0.2s;
 }
 
 .rdr-title {
@@ -1440,20 +1450,21 @@ body {
 .saved-home-btn {
   position: absolute;
   left: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 4px;
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 10px;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 20px;
   font-weight: 900;
-  letter-spacing: 1.5px;
+  text-decoration: none;
+  transition: 0.2s;
 }
 
-.saved-home-icon {
-  font-size: 28px;
-}
 
 .saved-title {
   margin: 0;

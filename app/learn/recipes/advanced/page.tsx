@@ -50,7 +50,6 @@ export default function LearnAdvancedPage() {
       <header className="rdr-header">
         <Link href="/learn/recipes" className="rdr-home-btn" aria-label="Back">
           <span style={{ fontSize: "28px" }}>←</span>
-          <span>BACK TO MENU</span>
         </Link>
         <h1 className="rdr-title">ADVANCED RECIPES</h1>
         <div className="rdr-logo">

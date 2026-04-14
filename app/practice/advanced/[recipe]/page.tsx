@@ -11,6 +11,7 @@ import { useState, useRef, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 
+//types for ingredient cards and steps
 type Card = {
   id: string;
   label: string;
