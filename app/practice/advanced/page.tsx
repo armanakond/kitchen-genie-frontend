@@ -1,7 +1,7 @@
 //practice advanced selection page
 //fetches all advanced recipes from supabase and displays in grid
 //each card links to game page for that recipe using its supabase UUID
-
+//search filter for recipe name
 
 "use client";
 

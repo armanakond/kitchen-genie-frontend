@@ -1,5 +1,7 @@
 //saved recipes page, shows all the recipes the user has saved/mastered, with stats and progress towards next level
-//currently hardcoded with placeholder data
+//fetches completed recipes from user_progress joined with recipes table
+//display username from supabase user_metadata, stats broken down by difficulty
+//all recipe cards link back to practice game for that recipe, with difficulty badge colour coded (green, orange, red)
 
 "use client";
 
@@ -32,13 +34,18 @@ export default function SavedRecipesPage() {
   const [recipes, setRecipes] = useState<SavedRecipe[]>([]);
   const [loading, setLoading] = useState(true);
 
+  //fetch user data and completed recipes from supabase on mount
+
   useEffect(() => {
     const fetchData = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
 
+
+      //username comes from supabase user_metadata, set to placeholder if not available
       setUsername(user.user_metadata?.display_name ?? "Your Username");
 
+      //if no completed recipes, set loading to false show empty state
       const { data: progressData } = await supabase
         .from("user_progress")
         .select("recipe_id")
@@ -50,6 +57,7 @@ export default function SavedRecipesPage() {
         return;
       }
 
+      //fetch full recipe details for each completed recipe
       const recipeIds = progressData.map((p) => p.recipe_id);
       const { data: recipesData } = await supabase
         .from("recipes")
@@ -64,10 +72,12 @@ export default function SavedRecipesPage() {
     fetchData();
   }, []);
 
+  //count recipes by difficulty for stats row
   const beginnerCount = recipes.filter((r) => r.difficulty === "BEGINNER").length;
   const intermediateCount = recipes.filter((r) => r.difficulty === "INTERMEDIATE").length;
   const advancedCount = recipes.filter((r) => r.difficulty === "ADVANCED").length;
 
+  //correct practice link based on recipe difficulty, links to /practice/[difficulty]/[recipeId]
   const getPracticeLink = (recipe: SavedRecipe) => {
     const diff = recipe.difficulty.toLowerCase();
     return `/practice/${diff}/${recipe.id}`;

@@ -1,6 +1,7 @@
-// app/learn/recipes/intermediate/page.tsx
-// Intermediate recipe detail page for the learn section
-// Fetches all INTERMEDIATE recipes from Supabase and displays them as a grid
+//app/learn/recipes/intermediate/page.tsx
+//intermediate recipe detail page for the learn section
+//fetches all intermediate recipes from Supabase and displays them as a grid
+//search filter for recipe name
 
 "use client";
 

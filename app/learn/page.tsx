@@ -1,5 +1,6 @@
 //learn home page, lets users pick between recipe detail and quick recipes paths
-
+//recipe detail = step by step instructions by difficulty lvl
+//quick recipes = fast simple meals for busy schedules
 
 import Image from "next/image";
 import Link from "next/link";

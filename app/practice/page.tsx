@@ -1,5 +1,7 @@
 //practice mode selection page, allows users to select difficulty
 //each difficulty routes to recipe selection page thjen to the game
+//each difficulty routes to a recipe selection page and then the game after
+//hearts = difficulty indicator
 
 import Image from "next/image";
 import Link from "next/link";
@@ -32,6 +34,7 @@ export default function PracticePage() {
   ];
 
   return (
+
     <main className="prac-page">
       <header className="prac-header">
         <Link href="/dashboard" className="prac-home-btn" aria-label="Back to menu">

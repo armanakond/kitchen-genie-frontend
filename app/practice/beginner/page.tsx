@@ -1,6 +1,8 @@
 //practice beginner selection page
 //fetches all beginner recipes from supabase and displays in grid
 //each card links to game page for that recipe using its supabase UUID
+//search filter for recipe name
+
 
 "use client";
 
@@ -9,6 +11,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 
+//recipe type definition, matches supabase table structure
 type Recipe = {
   id: string;
   name: string;
