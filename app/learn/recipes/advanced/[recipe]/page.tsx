@@ -10,19 +10,21 @@ import Link from "next/link";
 import { useState, useEffect, use } from "react";
 import { supabase } from "@/lib/supabase";
 
+//types for steps and ingredient cards
 type Step = {
   id: string;
   step_number: number;
   instruction: string;
 };
-
 type Card = {
   id: string;
   label: string;
   type: string;
 };
 
+
 export default function RecipeDetailPage({
+  //unwrap recipe id from params
   params,
 }: {
   params: Promise<{ recipe: string }>;
@@ -35,7 +37,7 @@ export default function RecipeDetailPage({
 
   useEffect(() => {
     const fetchData = async () => {
-      // Fetch recipe name
+      //fetch recipe name
       const { data: recipeData } = await supabase
         .from("recipes")
         .select("name")
@@ -44,7 +46,7 @@ export default function RecipeDetailPage({
 
       if (recipeData) setRecipeName(recipeData.name);
 
-      // Fetch steps ordered by step number
+      //fetch steps ordered by step number
       const { data: stepsData } = await supabase
         .from("steps")
         .select("*")
@@ -53,7 +55,7 @@ export default function RecipeDetailPage({
 
       if (stepsData) setSteps(stepsData);
 
-      // Fetch ingredient cards only
+      //fetch ingredient cards only
       const { data: cardsData } = await supabase
         .from("cards")
         .select("id, label, type")

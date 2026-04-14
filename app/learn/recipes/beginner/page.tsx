@@ -16,11 +16,13 @@ type Recipe = {
   image_url: string;
 };
 
+//fetches beginner recipes from supabase on load
 export default function LearnBeginnerPage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
 
+  //fetch beginner recipes from supabase on load
   useEffect(() => {
     const fetchRecipes = async () => {
       const { data, error } = await supabase
@@ -36,6 +38,7 @@ export default function LearnBeginnerPage() {
     fetchRecipes();
   }, []);
 
+  //filter recipes based on search query
   const filtered = recipes.filter((r) =>
     r.name.toLowerCase().includes(search.toLowerCase())
   );
@@ -64,6 +67,7 @@ export default function LearnBeginnerPage() {
         />
       </div>
 
+      {/* Filtered recipes */}
       {loading ? (
         <div className="rdr-loading">Loading recipes...</div>
       ) : (

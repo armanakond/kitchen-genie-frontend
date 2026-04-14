@@ -1,3 +1,4 @@
+//app/dashboard/page.tsx
 //dashboard page, main hub after login or signup
 //shows stats, recent activity, and daily challenge, with sidebar navigation to other sections
 
@@ -9,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 
+//types for user stats, recent recipes, and daily challenge data fetched from supabase
 type Stats = {
   level: number;
   total_xp: number;

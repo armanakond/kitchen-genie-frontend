@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useState, useEffect, use } from "react";
 import { supabase } from "@/lib/supabase";
 
+//types for steps and ingredient cards
 type Step = {
   id: string;
   step_number: number;

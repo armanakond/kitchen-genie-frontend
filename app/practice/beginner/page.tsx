@@ -1,3 +1,4 @@
+//app/practice/beginner/page.tsx
 //practice beginner selection page
 //fetches all beginner recipes from supabase and displays in grid
 //each card links to game page for that recipe using its supabase UUID

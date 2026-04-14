@@ -1,7 +1,8 @@
-// app/learn/quick/page.tsx
-// Quick recipes page — shows all QUICK type recipes from Supabase
-// Fetches recipes filtered by type = 'QUICK' instead of hardcoded array
-// Search filters client-side for performance
+//app/learn/quick/page.tsx
+//quick recipes page, shows all quick type recipes from Supabase
+//fetches recipes filtered by type = 'QUICK' from supabase
+//search filters client-side for performance
+//these are fast meals under 10 minutes, aimed towards students
 
 "use client";
 
@@ -10,6 +11,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 
+//types for recipe data fetched from supabase
 type Recipe = {
   id: string;
   name: string;
@@ -22,6 +24,7 @@ export default function QuickRecipesPage() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
 
+  //fetch quick recipes from supabase on load
   useEffect(() => {
     const fetchRecipes = async () => {
       const { data, error } = await supabase
@@ -38,6 +41,7 @@ export default function QuickRecipesPage() {
     fetchRecipes();
   }, []);
 
+  //filter recipes based on search query
   const filtered = recipes.filter((r) =>
     r.name.toLowerCase().includes(search.toLowerCase())
   );
@@ -64,12 +68,13 @@ export default function QuickRecipesPage() {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-
+      {/* Show loading state then render filtered recipes grid */}
       {loading ? (
         <div className="rdr-loading">Loading recipes...</div>
       ) : (
         <div className="qr-grid">
           {filtered.map((recipe) => (
+            //link to quick recip detail page [/learn/quick/[recipe UUID] where id is recipe.id]
             <Link key={recipe.id} href={`/learn/quick/${recipe.id}`} className="qr-card">
               <div className="qr-card-img-wrap">
                 <img src={recipe.image_url} alt={recipe.name} className="qr-card-img" />

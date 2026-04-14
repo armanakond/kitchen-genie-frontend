@@ -1,3 +1,4 @@
+//app/forgot-password/page.tsx
 //forgot password page, lets users request password reset email
 //uses supabase auth resetPasswordForEmail with a redirect url to /reset-password
 

@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 
+//type for recipe data fetched from supabase
 type Recipe = {
   id: string;
   name: string;
@@ -16,6 +17,7 @@ type Recipe = {
   image_url: string;
 };
 
+//fetches advanced recipes from supabase on load
 export default function LearnAdvancedPage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [search, setSearch] = useState("");
@@ -36,11 +38,14 @@ export default function LearnAdvancedPage() {
     fetchRecipes();
   }, []);
 
+  //filter recipes based on search query
   const filtered = recipes.filter((r) =>
     r.name.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
+
+    //main page layout with header, search bar, and grid of recipe cards
     <main className="rdr-page">
       <header className="rdr-header">
         <Link href="/learn/recipes" className="rdr-home-btn" aria-label="Back">
@@ -53,6 +58,7 @@ export default function LearnAdvancedPage() {
         </div>
       </header>
 
+      {/* Search bar */}
       <div className="rdr-search-row">
         <span className="rdr-search-icon">🔍</span>
         <input
@@ -64,6 +70,7 @@ export default function LearnAdvancedPage() {
         />
       </div>
 
+      {/* Filtered recipes */}
       {loading ? (
         <div className="rdr-loading">Loading recipes...</div>
       ) : (

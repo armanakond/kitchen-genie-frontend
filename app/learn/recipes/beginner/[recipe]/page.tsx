@@ -1,7 +1,7 @@
-// app/learn/recipes/beginner/[recipe]/page.tsx
-// Recipe detail page — shows the full step by step instructions for a recipe
-// Fetches recipe name, ingredients (cards) and steps from Supabase
-// Uses React.use() to unwrap params as required by Next.js 16
+//app/learn/recipes/beginner/[recipe]/page.tsx
+//recipe detail page, shows full step by step instructions for a recipe
+//fetches recipe name, ingredients (cards) and steps from Supabase
+//uses React.use() to unwrap params as required by Next.js 16
 
 "use client";
 
@@ -35,7 +35,7 @@ export default function RecipeDetailPage({
 
   useEffect(() => {
     const fetchData = async () => {
-      // Fetch recipe name
+      //fetch recipe name
       const { data: recipeData } = await supabase
         .from("recipes")
         .select("name")
@@ -44,7 +44,7 @@ export default function RecipeDetailPage({
 
       if (recipeData) setRecipeName(recipeData.name);
 
-      // Fetch steps ordered by step number
+      //fetch steps ordered by step number
       const { data: stepsData } = await supabase
         .from("steps")
         .select("*")
@@ -53,7 +53,7 @@ export default function RecipeDetailPage({
 
       if (stepsData) setSteps(stepsData);
 
-      // Fetch ingredient cards only
+      //fetch ingredient cards only
       const { data: cardsData } = await supabase
         .from("cards")
         .select("id, label, type")

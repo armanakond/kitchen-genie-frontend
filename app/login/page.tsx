@@ -1,3 +1,4 @@
+//app/login/page.tsx
 //login page allows users to sign in with email and password
 //supabase auth signInWithPassword and redirects to dashboard on success
 
@@ -48,7 +49,7 @@ export default function LoginPage() {
             placeholder="Email address"
             required
           />
-
+          {/* Password field and forgot password link */}
           <div className="authPasswordGroup">
             <input
               className="authInput"

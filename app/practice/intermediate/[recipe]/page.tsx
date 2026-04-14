@@ -1,3 +1,7 @@
+//app/practice/intermediate/[recipe]/page.tsx
+//Practice game page — the main drag and drop card game
+//on completion routes to /practice/complete with recipe ID and mistake count
+//uses React.use() to unwrap params as required by Next.js 16
 
 "use client";
 
@@ -22,6 +26,7 @@ type Step = {
 };
 
 export default function PracticeGamePage({
+  //unwrap recipe id from params
   params,
 }: {
   params: Promise<{ recipe: string }>;
@@ -42,6 +47,7 @@ export default function PracticeGamePage({
   const [hint, setHint] = useState("");
   const dragId = useRef<string | null>(null);
 
+  //fetch recipe name, steps and cards from Supabase on mount
   useEffect(() => {
     const fetchData = async () => {
       const { data: recipeData } = await supabase
@@ -52,6 +58,7 @@ export default function PracticeGamePage({
 
       if (recipeData) setRecipeName(recipeData.name);
 
+      //fetch steps ordered by step number
       const { data: stepsData } = await supabase
         .from("steps")
         .select("*")
@@ -60,6 +67,7 @@ export default function PracticeGamePage({
 
       if (stepsData) setSteps(stepsData);
 
+      //fetch all cards for this recipe ordered by correct_order
       const { data: cardsData } = await supabase
         .from("cards")
         .select("*")
@@ -77,16 +85,17 @@ export default function PracticeGamePage({
     fetchData();
   }, [recipeId]);
 
+  //[ick 6 cards for the tray, 1 correct card for current step + 5 random decoys
   const pickCards = (allCards: Card[], stepIdx: number) => {
     const correctCard = allCards.find((c) => c.correct_order === stepIdx + 1) ?? allCards[0];
     const decoys = allCards
       .filter((c) => c.id !== correctCard.id)
       .sort(() => Math.random() - 0.5)
       .slice(0, 5);
-    return [...decoys, correctCard].sort(() => Math.random() - 0.5); // shuffle the order
+    return [...decoys, correctCard].sort(() => Math.random() - 0.5);
   };
 
-  // generate a hardcoded hint based on the correct card type
+  //generate hint based on the correct card type — green = ingredient, orange = action
   const getHint = (card: Card): string => {
     if (card.type === "INGREDIENT") {
       return `💡 Hint: You need an ingredient here — look for a green card!`;
@@ -113,12 +122,13 @@ export default function PracticeGamePage({
     setDropped(droppedCardId);
 
     if (droppedCardId === correctCard.id) {
-      // correct = clear hint and move to next step
+      //correct card, clear hint and advance to next step
       setFeedback("correct");
       setHint("");
       setTimeout(() => {
         const nextIndex = currentStepIndex + 1;
         if (nextIndex >= steps.length) {
+          //all steps complete, go to complete screen
           router.push(`/practice/complete?recipe=${recipeId}&mistakes=${mistakes}`);
         } else {
           setCurrentStepIndex(nextIndex);
@@ -128,13 +138,14 @@ export default function PracticeGamePage({
         }
       }, 800);
     } else {
-      // wrong = show hint based on correct card type
+      //wrong card, increment mistakes and show hint
       const newMistakes = mistakes + 1;
       setFeedback("wrong");
       setMistakes(newMistakes);
       setHint(getHint(correctCard));
 
       if (newMistakes >= 6) {
+        //too many mistakes, reset game and show fail overlay
         setTimeout(() => {
           setCurrentStepIndex(0);
           setDisplayedCards(pickCards(cards, 0));
@@ -156,14 +167,7 @@ export default function PracticeGamePage({
   if (loading) {
     return (
       <main className="game-page">
-        <div style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flex: 1, color: "rgba(255,255,255,0.5)",
-          fontSize: "14px",
-          letterSpacing: "2px"
-        }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flex: 1, color: "rgba(255,255,255,0.5)", fontSize: "14px", letterSpacing: "2px" }}>
           LOADING...
         </div>
       </main>
@@ -173,6 +177,7 @@ export default function PracticeGamePage({
   return (
     <main className="game-page">
 
+      {/* Fail overlay, shown when player makes 6 mistakes */}
       {showFail && (
         <div className="game-fail-overlay">
           <div className="game-fail-box">
@@ -192,9 +197,7 @@ export default function PracticeGamePage({
       )}
 
       <header className="game-header">
-        <Link href="/practice/intermediate" className="btn-back" aria-label="Back">
-          ←
-        </Link>
+        <Link href="/practice/intermediate" className="btn-back" aria-label="Back">←</Link>
         <h1 className="game-title">PRACTICE MODE</h1>
         <div className="game-logo">
           <Image src="/images/Logo.png" alt="Kitchen Genie" width={90} height={90} priority />
@@ -202,6 +205,8 @@ export default function PracticeGamePage({
       </header>
 
       <div className="game-body">
+
+        {/* Quest log sidebar, shows all steps and ticks off completed ones */}
         <aside className="game-quest">
           <div className="game-quest-title">Quest log</div>
           <div className="game-quest-recipe">
@@ -218,11 +223,11 @@ export default function PracticeGamePage({
         </aside>
 
         <div className="game-challenge">
-          {currentStep && (
-            <p className="game-prompt">{currentStep.instruction}</p>
-          )}
+          {/* Current step instruction shown as prompt */}
+          {currentStep && <p className="game-prompt">{currentStep.instruction}</p>}
 
           <div className="game-drop-row">
+            {/* Drop zone, player drags card here */}
             <div
               className={`game-dropzone ${dragOver ? "drag-over" : ""} ${dropped ? "has-card" : ""} ${feedback === "correct" ? "correct" : ""} ${feedback === "wrong" ? "wrong" : ""}`}
               onDragOver={handleDragOver}
@@ -238,31 +243,20 @@ export default function PracticeGamePage({
                   <div className="game-card-label">{droppedCard.label}</div>
                 </div>
               ) : (
-                <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "11px", letterSpacing: "1px" }}>
-                  DROP HERE
-                </span>
+                <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "11px", letterSpacing: "1px" }}>DROP HERE</span>
               )}
             </div>
 
-            {/* hint + feedback area */}
+            {/* Feedback and hint area, shows correct/wrong feedback and hint after wrong drop */}
             <div className="game-drop-hint">
-              {feedback === "correct" && (
-                <span style={{ color: "#4caf50", fontSize: "22px" }}>✓ Correct!</span>
-              )}
-              {feedback === "wrong" && (
-                <span style={{ color: "#f44336", fontSize: "22px" }}>✗ Try again!</span>
-              )}
-              {!feedback && hint && (
-                <span style={{ color: "#f5c518", fontSize: "12px", letterSpacing: "1px", lineHeight: "1.5" }}>
-                  {hint}
-                </span>
-              )}
-              {!feedback && !hint && (
-                <span>&lt; DRAG THE CORRECT CARD HERE</span>
-              )}
+              {feedback === "correct" && <span style={{ color: "#4caf50", fontSize: "22px" }}>✓ Correct!</span>}
+              {feedback === "wrong" && <span style={{ color: "#f44336", fontSize: "22px" }}>✗ Try again!</span>}
+              {!feedback && hint && <span style={{ color: "#f5c518", fontSize: "12px", letterSpacing: "1px", lineHeight: "1.5" }}>{hint}</span>}
+              {!feedback && !hint && <span>&lt; DRAG THE CORRECT CARD HERE</span>}
             </div>
           </div>
 
+          {/* Step progress and mistake counter */}
           <div className="game-progress">
             Step {currentStepIndex + 1} of {steps.length}
             {mistakes > 0 && (
@@ -274,6 +268,7 @@ export default function PracticeGamePage({
         </div>
       </div>
 
+      {/* Card tray, shows 6 cards at a time, 1 correct + 5 decoys */}
       <div className="game-tray">
         {displayedCards.map((card) => (
           <div

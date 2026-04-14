@@ -1,6 +1,7 @@
+//app/practice/complete/page.tsx
 //quest complete page, shows score and mistakes, links to replay or dashboard
-//fetches recipe name and saves progress to supabase on load, including stars earned and xp gained based on mistakes
-//stars are calculated: 3 stars = 0 mistakes, 2 stars = 1-3 mistakes, 1 star = 4-5 mistakes, 0 stars = 6 mistakes
+//reads recipe id and mistake count from url search params
+//calculates stars and xp based on mistakes, saves to supabase
 //wrapped in suspense because useSearchParams needs it next.js
 
 "use client";

@@ -1,6 +1,11 @@
+//app/learn/recipes/page.tsx
+//recipe detail difficulty page allows users to pick between beginner, intermediate and advanced
+//reuses the prac-page layout since it has the same card selection pattern
+
 import Image from "next/image";
 import Link from "next/link";
 
+//difficulty path options with heart counts and routes
 const PATHS = [
   {
     title: "BEGINNER",
@@ -37,6 +42,7 @@ export default function RecipeDetailSelectionPage() {
         </div>
       </header>
 
+      {/* Difficulty selection cards, hearts show the difficulty level*/}
       <section className="prac-cards">
         {PATHS.map((p) => (
           <div key={p.title} className="prac-card">
