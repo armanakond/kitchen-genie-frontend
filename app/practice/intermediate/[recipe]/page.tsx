@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -38,6 +39,7 @@ export default function PracticeGamePage({
   const [mistakes, setMistakes] = useState(0);
   const [loading, setLoading] = useState(true);
   const [showFail, setShowFail] = useState(false);
+  const [hint, setHint] = useState("");
   const dragId = useRef<string | null>(null);
 
   useEffect(() => {
@@ -81,7 +83,16 @@ export default function PracticeGamePage({
       .filter((c) => c.id !== correctCard.id)
       .sort(() => Math.random() - 0.5)
       .slice(0, 5);
-    return [...decoys, correctCard].sort(() => Math.random() - 0.5);
+    return [...decoys, correctCard].sort(() => Math.random() - 0.5); // shuffle the order
+  };
+
+  // generate a hardcoded hint based on the correct card type
+  const getHint = (card: Card): string => {
+    if (card.type === "INGREDIENT") {
+      return `💡 Hint: You need an ingredient here — look for a green card!`;
+    } else {
+      return `💡 Hint: You need an action here — look for an orange card!`;
+    }
   };
 
   const currentStep = steps[currentStepIndex];
@@ -102,7 +113,9 @@ export default function PracticeGamePage({
     setDropped(droppedCardId);
 
     if (droppedCardId === correctCard.id) {
+      // correct = clear hint and move to next step
       setFeedback("correct");
+      setHint("");
       setTimeout(() => {
         const nextIndex = currentStepIndex + 1;
         if (nextIndex >= steps.length) {
@@ -115,9 +128,11 @@ export default function PracticeGamePage({
         }
       }, 800);
     } else {
+      // wrong = show hint based on correct card type
       const newMistakes = mistakes + 1;
       setFeedback("wrong");
       setMistakes(newMistakes);
+      setHint(getHint(correctCard));
 
       if (newMistakes >= 6) {
         setTimeout(() => {
@@ -125,6 +140,7 @@ export default function PracticeGamePage({
           setDisplayedCards(pickCards(cards, 0));
           setDropped(null);
           setFeedback(null);
+          setHint("");
           setMistakes(0);
           setShowFail(true);
         }, 800);
@@ -140,7 +156,14 @@ export default function PracticeGamePage({
   if (loading) {
     return (
       <main className="game-page">
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flex: 1, color: "rgba(255,255,255,0.5)", fontSize: "14px", letterSpacing: "2px" }}>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flex: 1, color: "rgba(255,255,255,0.5)",
+          fontSize: "14px",
+          letterSpacing: "2px"
+        }}>
           LOADING...
         </div>
       </main>
@@ -149,7 +172,7 @@ export default function PracticeGamePage({
 
   return (
     <main className="game-page">
-      {/* fail banner */}
+
       {showFail && (
         <div className="game-fail-overlay">
           <div className="game-fail-box">
@@ -169,8 +192,8 @@ export default function PracticeGamePage({
       )}
 
       <header className="game-header">
-        <Link href="/practice" className="game-back" aria-label="Back">
-          <span>←</span>
+        <Link href="/practice/intermediate" className="btn-back" aria-label="Back">
+          ←
         </Link>
         <h1 className="game-title">PRACTICE MODE</h1>
         <div className="game-logo">
@@ -220,10 +243,23 @@ export default function PracticeGamePage({
                 </span>
               )}
             </div>
+
+            {/* hint + feedback area */}
             <div className="game-drop-hint">
-              {feedback === "correct" && <span style={{ color: "#4caf50", fontSize: "22px" }}>✓ Correct!</span>}
-              {feedback === "wrong" && <span style={{ color: "#f44336", fontSize: "22px" }}>✗ Try again!</span>}
-              {!feedback && <span>&lt; DRAG THE CORRECT CARD HERE</span>}
+              {feedback === "correct" && (
+                <span style={{ color: "#4caf50", fontSize: "22px" }}>✓ Correct!</span>
+              )}
+              {feedback === "wrong" && (
+                <span style={{ color: "#f44336", fontSize: "22px" }}>✗ Try again!</span>
+              )}
+              {!feedback && hint && (
+                <span style={{ color: "#f5c518", fontSize: "12px", letterSpacing: "1px", lineHeight: "1.5" }}>
+                  {hint}
+                </span>
+              )}
+              {!feedback && !hint && (
+                <span>&lt; DRAG THE CORRECT CARD HERE</span>
+              )}
             </div>
           </div>
 
