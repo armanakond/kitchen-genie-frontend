@@ -130,7 +130,7 @@ export default function PracticeGamePage({
         const nextIndex = currentStepIndex + 1;
         if (nextIndex >= steps.length) {
           //all steps complete, go to complete screen
-          router.push(`/practice/complete?recipe=${recipeId}&mistakes=${mistakes}`);
+          router.push(`/practice/complete?recipe=${recipeId}&mistakes=${mistakes}&difficulty=beginner`);
         } else {
           setCurrentStepIndex(nextIndex);
           setDisplayedCards(pickCards(cards, nextIndex));

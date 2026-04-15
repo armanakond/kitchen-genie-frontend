@@ -16,6 +16,7 @@ function QuestCompleteContent() {
   const searchParams = useSearchParams();
   const recipeId = searchParams.get("recipe") ?? "";
   const mistakes = parseInt(searchParams.get("mistakes") ?? "0");
+  const difficulty = searchParams.get("difficulty") ?? "beginner";
   const [recipeName, setRecipeName] = useState("");
   const [saved, setSaved] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
@@ -150,7 +151,7 @@ function QuestCompleteContent() {
         >
           {bookmarked ? "✓ SAVED!" : bookmarking ? "SAVING..." : "SAVE"}
         </button>
-        <Link href={`/practice/beginner/${recipeId}`} className="complete-btn complete-btn--gold">REPLAY</Link>
+        <Link href={`/practice/${difficulty}/${recipeId}`} className="complete-btn complete-btn--gold">REPLAY</Link>
       </div>
     </main>
   );
