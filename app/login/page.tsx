@@ -29,6 +29,16 @@ export default function LoginPage() {
     router.push("/dashboard");
   };
 
+  //handles google oauth login, redirects to dashboard on success
+  const handleGoogleLogin = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/dashboard`,
+      },
+    });
+  };
+
   return (
     <main className="screen authScreen">
       {/*logo */}
@@ -66,6 +76,41 @@ export default function LoginPage() {
             LOGIN
           </button>
         </form>
+
+        {/*divider between email login and google login */}
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", margin: "16px 0" }}>
+          <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.12)" }} />
+          <span className="divider">OR</span>
+          <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.12)" }} />
+        </div>
+
+        {/*google oauth login button, this will allow you to login with google */}
+        <button
+          onClick={handleGoogleLogin}
+          type="button"
+          style={{
+            width: "100%",
+            height: "50px",
+            borderRadius: "10px",
+            border: "1px solid rgba(255,255,255,0.15)",
+            background: "rgba(255,255,255,0.06)",
+            color: "white",
+            fontWeight: 900,
+            letterSpacing: "1px",
+            fontSize: "13px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "10px",
+            transition: "background 0.15s",
+          }}
+          onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.12)")}
+          onMouseLeave={e => (e.currentTarget.style.background = "rgba(255,255,255,0.06)")}
+        >
+          <img src="/images/icons/google.png" width={20} height={20} alt="Google" />
+          CONTINUE WITH GOOGLE
+        </button>
 
         <p className="authFooter">
           Don't have an account?{" "}

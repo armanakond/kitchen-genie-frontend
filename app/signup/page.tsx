@@ -46,6 +46,16 @@ export default function SignupPage() {
     router.push("/verify-email");
   };
 
+  //handles google oauth signup, redirects to dashboard on success
+  const handleGoogleSignup = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/tutorial`, //redirect to tutorial page after google signup, since they skip email verification
+      },
+    });
+  };
+
   return (
     <main className="screen authScreen">
 
@@ -89,6 +99,41 @@ export default function SignupPage() {
             SIGN UP
           </button>
         </form>
+
+        {/*divider between email signup and google signup */}
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", margin: "16px 0" }}>
+          <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.12)" }} />
+          <span className="divider">OR</span>
+          <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.12)" }} />
+        </div>
+
+        {/*google oauth signup button, will allow you to sign up with google */}
+        <button
+          onClick={handleGoogleSignup}
+          type="button"
+          style={{
+            width: "100%",
+            height: "50px",
+            borderRadius: "10px",
+            border: "1px solid rgba(255,255,255,0.15)",
+            background: "rgba(255,255,255,0.06)",
+            color: "white",
+            fontWeight: 900,
+            letterSpacing: "1px",
+            fontSize: "13px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "10px",
+            transition: "background 0.15s",
+          }}
+          onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.12)")}
+          onMouseLeave={e => (e.currentTarget.style.background = "rgba(255,255,255,0.06)")}
+        >
+          <img src="/images/icons/google.png" width={20} height={20} alt="Google" />
+          CONTINUE WITH GOOGLE
+        </button>
 
         {/*link to login page for users who already have an account */}
         <p className="authFooter">
