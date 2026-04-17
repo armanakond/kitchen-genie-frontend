@@ -1,61 +1,68 @@
+//app/tutorial/step2/page.tsx
+//tutorial page 2, explains hints, difficulty levels, and the learn section
+//reached by clicking NEXT on tutorial page 1
+
 import Image from "next/image";
 import Link from "next/link";
 
 export default function TutorialStep2Page() {
   return (
     <main className="tut-page">
-      {/* header */}
+      {/* Header */}
       <header className="tut-header">
-        {/* back button */}
-        <Link href="/tutorial" className="tut-back" aria-label="Back to tutorial step 1">
-          <Image src="/images/left-arrow.png" alt="Back Arrow" width={24} height={24}></Image>
-        </Link>
-
-        <h1 className="tut-title">TUTORIAL PAGE</h1>
-
+        <Link href="/tutorial" className="btn-back" aria-label="Back to tutorial step 1">←</Link>
+        <h1 className="tut-title">HOW TO PLAY</h1>
         <div className="tut-logo">
-          <Image
-            src="/images/Logo.png"
-            alt="Kitchen Genie Logo"
-            width={200}
-            height={200}
-            priority
-          />
+          <Image src="/images/Logo.png" alt="Kitchen Genie Logo" width={90} height={90} priority />
         </div>
       </header>
 
-      {/* body */}
+      {/* Body */}
       <section className="tut-body">
         <div className="tut-text">
+
           <p className="tut-lead">
-            <span className="tut-bold">How it works:</span>
+            <span className="tut-bold">A few more things to know:</span>
             <br />
-            Learn how to use Kitchen Genie in minutes.
+            Tips to help you get the most out of Kitchen Genie.
           </p>
 
           <div className="tut-rule">
-            <h2 className="tut-rule-title">RULE 4: Order Matters!</h2>
+            <h2 className="tut-rule-title">💡 Use Your Hints</h2>
             <p className="tut-rule-desc">
-              Cards must not be in the wrong order otherwise it can change the outcome.
-              <br />
-              Learn the logic behind cooking steps, not just the results.
+              Made a wrong guess? Don't worry, Kitchen Genie will give you a hint after each
+              mistake telling you whether you need an <span className="tut-bold">ingredient (green card)</span> or
+              an <span className="tut-bold">action (orange card)</span>. You have up to
+              6 mistakes before the recipe resets, so use your hints wisely!
             </p>
           </div>
 
           <div className="tut-rule">
-            <h2 className="tut-rule-title">RULE 5: Learn From Mistakes</h2>
+            <h2 className="tut-rule-title">📚 Learn Before You Practice</h2>
             <p className="tut-rule-desc">
-              Mistakes are not failures, KitchenGenie will show you exactly where you went wrong
-              so you can improve.
+              Not sure where to start? Head to the <span className="tut-bold">Learn</span> section
+              first. Each recipe has a detail page showing the full ingredients list and step by step
+              method so you can study it before attempting the practice game. Quick Recipes are also
+              available for when you are short on time, these are simple meals that take under 10 minutes.
             </p>
           </div>
+
+          <div className="tut-rule">
+            <h2 className="tut-rule-title">🏆 Choose Your Difficulty</h2>
+            <p className="tut-rule-desc">
+              Kitchen Genie has three difficulty levels: <span className="tut-bold">Beginner</span>,
+              {" "}<span className="tut-bold">Intermediate</span>, and <span className="tut-bold">Advanced</span>.
+              Start with Beginner recipes to get comfortable with the game mechanics, then
+              progress to more complex recipes as your confidence grows. Save your favourite
+              completed recipes to your profile to replay them anytime!
+            </p>
+          </div>
+
         </div>
 
-        {/* button on bottom right */}
+        {/* Navigation button */}
         <div className="tut-actions">
-          <Link className="tut-btn" href="/dashboard">
-            FINISH TUTORIAL
-          </Link>
+          <Link className="tut-btn" href="/dashboard">START COOKING →</Link>
         </div>
       </section>
     </main>

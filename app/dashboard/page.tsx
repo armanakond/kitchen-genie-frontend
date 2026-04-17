@@ -127,6 +127,7 @@ export default function DashboardPage() {
           <Link className="dash-btn" href="/practice">PRACTICE</Link>
           <Link className="dash-btn" href="/saved">SAVED RECIPES</Link>
           <Link className="dash-btn" href="/profile">PROFILE</Link>
+          <Link href="/tutorial" className="dash-btn">HOW TO PLAY</Link>
           <button className="dash-btn" onClick={handleLogout}>LOG OUT</button>
         </nav>
       </aside>
