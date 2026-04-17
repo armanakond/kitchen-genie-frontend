@@ -168,7 +168,15 @@ export default function PracticeGamePage({
   if (loading) {
     return (
       <main className="game-page">
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flex: 1, color: "rgba(255,255,255,0.5)", fontSize: "14px", letterSpacing: "2px" }}>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flex: 1,
+          color: "rgba(255,255,255,0.5)",
+          fontSize: "14px",
+          letterSpacing: "2px"
+        }}>
           LOADING...
         </div>
       </main>
