@@ -77,7 +77,7 @@ export default function QuickRecipeDetailPage({
   return (
     <main className="steps-page">
       <header className="steps-header">
-        <Link href="/learn/quick" className="steps-back" aria-label="Back">
+        <Link href="/learn/quick" className="btn-back" aria-label="Back">
           ←
         </Link>
         <h1 className="steps-title">QUICK RECIPE</h1>

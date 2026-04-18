@@ -74,7 +74,7 @@ export default function RecipeDetailPage({
   return (
     <main className="steps-page">
       <header className="steps-header">
-        <Link href="/learn/recipes/advanced" className="steps-back" aria-label="Back">
+        <Link href="/learn/recipes/advanced" className="btn-back" aria-label="Back">
           ←
         </Link>
         <h1 className="steps-title">RECIPE DETAIL</h1>
