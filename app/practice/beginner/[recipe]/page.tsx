@@ -47,7 +47,7 @@ export default function PracticeGamePage({
   const [showFail, setShowFail] = useState(false);
   const [hint, setHint] = useState("");
   const dragId = useRef<string | null>(null);
-  const [timeLeft, setTimeLeft] = useState(120);
+  const [timeLeft, setTimeLeft] = useState(180); //3 minutes for beginner
   const [timerActive, setTimerActive] = useState(true);
 
 
@@ -221,7 +221,7 @@ export default function PracticeGamePage({
             <div className="game-fail-actions">
               <button className="game-fail-btn game-fail-btn--retry" onClick={() => {
                 setShowFail(false);
-                setTimeLeft(120);
+                setTimeLeft(180); //so 3 minutes set for beginner
                 setTimerActive(true);
               }}>
                 🔄 RETRY

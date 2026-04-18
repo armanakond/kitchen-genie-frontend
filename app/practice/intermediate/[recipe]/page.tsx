@@ -221,7 +221,7 @@ export default function PracticeGamePage({
             <div className="game-fail-actions">
               <button className="game-fail-btn game-fail-btn--retry" onClick={() => {
                 setShowFail(false);
-                setTimeLeft(120);
+                setTimeLeft(120);   //2 minutes set for intermediate
                 setTimerActive(true);
               }}>
                 🔄 RETRY

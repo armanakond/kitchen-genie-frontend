@@ -47,6 +47,9 @@ export default function PracticeGamePage({
   const [showFail, setShowFail] = useState(false);
   const [hint, setHint] = useState("");
   const dragId = useRef<string | null>(null);
+  const [timeLeft, setTimeLeft] = useState(90); //1.5 minutes for advanced
+  const [timerActive, setTimerActive] = useState(true);
+
 
   //fetch recipe name, steps and cards from Supabase on mount
   useEffect(() => {
@@ -86,14 +89,34 @@ export default function PracticeGamePage({
     fetchData();
   }, [recipeId]);
 
-  //[ick 6 cards for the tray, 1 correct card for current step + 5 random decoys
+  //timer effect, counts down from 90 seconds and ends game when it reaches 0
+  useEffect(() => {
+    if (!timerActive || loading) return; //don't start timer until data is loaded
+    if (timeLeft <= 0) { //time's up, reset game and show fail overlay
+      setCurrentStepIndex(0); //reset to first step
+      setDisplayedCards(pickCards(cards, 0)); //reset to first step cards
+      setDropped(null); //reset dropped card
+      setFeedback(null); //reset feedback
+      setHint(""); //reset hint
+      setMistakes(0); //reset mistakes
+      setShowFail(true); //show fail overlay
+      setTimerActive(false); 
+      return;
+    }
+    const interval = setInterval(() => {
+      setTimeLeft((t) => t - 1); //decrement time every second
+    }, 1000);
+    return () => clearInterval(interval); //cleanup on unmount or when timer stops
+  }, [timeLeft, timerActive, loading]);
+
+  //pick 6 cards for the tray, 1 correct card for current step + 5 random decoys
   const pickCards = (allCards: Card[], stepIdx: number) => {
     const correctCard = allCards.find((c) => c.correct_order === stepIdx + 1) ?? allCards[0];
     const decoys = allCards
-      .filter((c) => c.id !== correctCard.id)
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 5);
-    return [...decoys, correctCard].sort(() => Math.random() - 0.5);
+      .filter((c) => c.id !== correctCard.id) //exclude correct card from decoys
+      .sort(() => Math.random() - 0.5) //shuffle remaining cards
+      .slice(0, 5); //take first 5 as decoys
+    return [...decoys, correctCard].sort(() => Math.random() - 0.5); //shuffle final 6 cards
   };
 
   //generate hint based on the correct card type — green = ingredient, orange = action
@@ -129,6 +152,7 @@ export default function PracticeGamePage({
       setTimeout(() => {
         const nextIndex = currentStepIndex + 1;
         if (nextIndex >= steps.length) {
+          setTimerActive(false); //stop timer on completion
           //all steps complete, go to complete screen
           router.push(`/practice/complete?recipe=${recipeId}&mistakes=${mistakes}&difficulty=advanced`);
         } else {
@@ -172,8 +196,7 @@ export default function PracticeGamePage({
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          flex: 1,
-          color: "rgba(255,255,255,0.5)",
+          flex: 1, color: "rgba(255,255,255,0.5)",
           fontSize: "14px",
           letterSpacing: "2px"
         }}>
@@ -192,9 +215,15 @@ export default function PracticeGamePage({
           <div className="game-fail-box">
             <div className="game-fail-icon">💀</div>
             <h2 className="game-fail-title">OOPS!</h2>
-            <p className="game-fail-desc">You made 6 mistakes. The recipe has been reset.</p>
+            <p className="game-fail-desc">
+              {timeLeft <= 0 ? "You ran out of time. The recipe has been reset." : "You made 6 mistakes. The recipe has been reset."}
+            </p>
             <div className="game-fail-actions">
-              <button className="game-fail-btn game-fail-btn--retry" onClick={() => setShowFail(false)}>
+              <button className="game-fail-btn game-fail-btn--retry" onClick={() => {
+                setShowFail(false);
+                setTimeLeft(90);   //1.5 minutes set for advanced
+                setTimerActive(true);
+              }}>
                 🔄 RETRY
               </button>
               <Link href="/practice/advanced" className="game-fail-btn game-fail-btn--back">
@@ -205,11 +234,22 @@ export default function PracticeGamePage({
         </div>
       )}
 
+      {/* Time remaining display */}
       <header className="game-header">
         <Link href="/practice/advanced" className="btn-back" aria-label="Back">←</Link>
         <h1 className="game-title">PRACTICE MODE</h1>
         <div className="game-logo">
           <Image src="/images/Logo.png" alt="Kitchen Genie" width={90} height={90} priority />
+        </div>
+        <div style={{
+          position: "absolute",
+          right: "120px",
+          color: timeLeft <= 10 ? "#f44336" : "rgba(255,255,255,0.7)",
+          fontWeight: 900,
+          letterSpacing: "2px",
+          fontSize: "clamp(12px, 1.2vw, 16px)"
+        }}>
+          ⏱ {Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, "0")} {/* Time remaining */}
         </div>
       </header>
 
@@ -238,6 +278,7 @@ export default function PracticeGamePage({
           <div className="game-drop-row">
             {/* Drop zone, player drags card here */}
             <div
+              //className changes based on drag state and feedback for styling
               className={`game-dropzone ${dragOver ? "drag-over" : ""} ${dropped ? "has-card" : ""} ${feedback === "correct" ? "correct" : ""} ${feedback === "wrong" ? "wrong" : ""}`}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
@@ -252,7 +293,12 @@ export default function PracticeGamePage({
                   <div className="game-card-label">{droppedCard.label}</div>
                 </div>
               ) : (
-                <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "11px", letterSpacing: "1px" }}>DROP HERE</span>
+                <span style={{
+                  color: "rgba(255,255,255,0.25)",
+                  fontSize: "11px",
+                  letterSpacing: "1px"
+                }}
+                >DROP HERE</span>
               )}
             </div>
 
