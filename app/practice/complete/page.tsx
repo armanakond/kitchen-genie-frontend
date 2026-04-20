@@ -25,7 +25,7 @@ function QuestCompleteContent() {
   //calculate stars and xp based on mistakes
   //0 mistakes = 3 stars, 1-3 mistakes = 2 stars, 4-5 mistakes = 1 star, 6 mistakes = 0 stars
   const stars = mistakes === 0 ? 3 : mistakes <= 3 ? 2 : mistakes <= 5 ? 1 : 0; //so 3 stars = 0 mistakes, 2 stars = 1-3 mistakes and 1 star = 4-5 mistakes, anything above = 0
-  const xp = stars === 3 ? 100 : stars === 2 ? 75 : stars === 1 ? 50 : 0;
+  const xp = stars === 3 ? 250 : stars === 2 ? 100 : stars === 1 ? 50 : 0;
 
   //fetch recipe name and save progress to supabase on load
   useEffect(() => {
