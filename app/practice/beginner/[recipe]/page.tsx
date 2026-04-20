@@ -93,14 +93,14 @@ export default function PracticeGamePage({
   useEffect(() => {
     if (!timerActive || loading) return; //don't start timer until data is loaded
     if (timeLeft <= 0) { //time's up, reset game and show fail overlay
-      setCurrentStepIndex(0);
+      setCurrentStepIndex(0); //reset to first step
       setDisplayedCards(pickCards(cards, 0));
-      setDropped(null);
-      setFeedback(null);
-      setHint("");
-      setMistakes(0);
-      setShowFail(true);
-      setTimerActive(false);
+      setDropped(null); //clear dropped card
+      setFeedback(null); //clear feedback
+      setHint(""); //clear hint
+      setMistakes(0); //reset mistakes
+      setShowFail(true); //show fail overlay
+      setTimerActive(false); //stop timer
       return;
     }
     const interval = setInterval(() => {
@@ -111,12 +111,12 @@ export default function PracticeGamePage({
 
   //pick 6 cards for the tray, 1 correct card for current step + 5 random decoys
   const pickCards = (allCards: Card[], stepIdx: number) => {
-    const correctCard = allCards.find((c) => c.correct_order === stepIdx + 1) ?? allCards[0];
+    const correctCard = allCards.find((c) => c.correct_order === stepIdx + 1) ?? allCards[0]; //find correct card, default to first if not found
     const decoys = allCards
-      .filter((c) => c.id !== correctCard.id)
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 5);
-    return [...decoys, correctCard].sort(() => Math.random() - 0.5);
+      .filter((c) => c.id !== correctCard.id) //exclude correct card from decoys
+      .sort(() => Math.random() - 0.5) //shuffle remaining cards
+      .slice(0, 5); //take first 5 as decoys
+    return [...decoys, correctCard].sort(() => Math.random() - 0.5); //shuffle final 6 cards before displaying
   };
 
   //generate hint based on the correct card type — green = ingredient, orange = action
@@ -136,13 +136,13 @@ export default function PracticeGamePage({
   const handleDragOver = (e: React.DragEvent) => { e.preventDefault(); setDragOver(true); };
   const handleDragLeave = () => setDragOver(false);
 
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    setDragOver(false);
+  const handleDrop = (e: React.DragEvent) => { 
+    e.preventDefault(); //set drag over to false on drop
+    setDragOver(false); //
 
-    if (!dragId.current || !correctCard) return;
+    if (!dragId.current || !correctCard) return; //safety check
 
-    const droppedCardId = dragId.current;
+    const droppedCardId = dragId.current; 
     setDropped(droppedCardId);
 
     if (droppedCardId === correctCard.id) {
@@ -154,9 +154,9 @@ export default function PracticeGamePage({
         if (nextIndex >= steps.length) {
           setTimerActive(false); //stop timer on completion
           //all steps complete, go to complete screen
-          router.push(`/practice/complete?recipe=${recipeId}&mistakes=${mistakes}&difficulty=beginner`);
+          router.push(`/practice/complete?recipe=${recipeId}&mistakes=${mistakes}&difficulty=beginner`); //pass recipe ID and mistake count as query params
         } else {
-          setCurrentStepIndex(nextIndex);
+          setCurrentStepIndex(nextIndex); 
           setDisplayedCards(pickCards(cards, nextIndex));
           setDropped(null);
           setFeedback(null);

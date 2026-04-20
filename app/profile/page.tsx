@@ -60,7 +60,6 @@ export default function ProfilePage() {
   const handleUpdatePassword = async (e: React.FormEvent) => {
     e.preventDefault();
 
-
     //client side validation
     if (newPassword !== confirmPassword) {
       alert("Passwords do not match");
@@ -89,6 +88,21 @@ export default function ProfilePage() {
     setTimeout(() => setPasswordSaved(false), 3000);
   };
 
+  //deleting account calls supabase rpc function to delete user
+  const handleDeleteAccount = async () => {
+    const confirmed = window.confirm("Are you sure you want to delete account? This action cannot be reversed.")
+    if (!confirmed) return;
+
+    const { error } = await supabase.rpc('delete_user')
+    if (error) {
+      alert(error.message);
+      return
+    }
+    await supabase.auth.signOut()
+    router.push('/signup')
+  }
+
+  //main profile page layout, includes sections for account info, display name, password change, and account deletion
   return (
     <main className="profile-page">
       <header className="profile-header">
@@ -155,6 +169,24 @@ export default function ProfilePage() {
               {passwordSaved ? "✓ SAVED!" : "UPDATE PASSWORD"}
             </button>
           </form>
+        </div>
+        {/* delete account section, calls handleDeleteAccount on click */}
+        <div className="profile-section">
+          <h2 className="profile-section-title">DELETE YOUR ACCOUNT</h2>
+          <button onClick={handleDeleteAccount}
+            style={{
+              background: "rgba(220, 50, 50, 0.15)",
+              border: "1px solid rgba(220, 50, 50, 0.4)",
+              color: "rgb(220, 50, 50)",
+              padding: "12px 24px",
+              fontWeight: 900,
+              letterSpacing: "2px",
+              fontSize: "13px",
+              cursor: "pointer",
+              width: "100%"
+            }}>
+            DELETE ACCOUNT
+          </button>
         </div>
 
       </div>

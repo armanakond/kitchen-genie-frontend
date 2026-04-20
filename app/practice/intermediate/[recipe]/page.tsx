@@ -93,14 +93,14 @@ export default function PracticeGamePage({
   useEffect(() => {
     if (!timerActive || loading) return; //don't start timer until data is loaded
     if (timeLeft <= 0) { //time's up, reset game and show fail overlay
-      setCurrentStepIndex(0);
-      setDisplayedCards(pickCards(cards, 0));
-      setDropped(null);
-      setFeedback(null);
-      setHint("");
-      setMistakes(0);
-      setShowFail(true);
-      setTimerActive(false);
+      setCurrentStepIndex(0); //reset to first step
+      setDisplayedCards(pickCards(cards, 0)); //reset cards to first step
+      setDropped(null); //clear dropped card
+      setFeedback(null); //clear feedback
+      setHint(""); //clear hint
+      setMistakes(0); //reset mistakes
+      setShowFail(true); //show fail overlay
+      setTimerActive(false); //stop timer
       return;
     }
     const interval = setInterval(() => {
