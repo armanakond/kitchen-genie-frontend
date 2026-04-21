@@ -45,12 +45,11 @@ export default function SavedRecipesPage() {
       //username comes from supabase user_metadata, set to placeholder if not available
       setUsername(user.user_metadata?.display_name ?? "Your Username");
 
-      //if no completed recipes, set loading to false show empty state
+
       const { data: progressData } = await supabase
-        .from("user_progress")
+        .from("saved_recipes")
         .select("recipe_id")
-        .eq("user_id", user.id)
-        .eq("completed", true);
+        .eq("user_id", user.id);
 
       if (!progressData || progressData.length === 0) {
         setLoading(false);
@@ -106,7 +105,7 @@ export default function SavedRecipesPage() {
           <div className="saved-stats-row">
             <div className="saved-stat">
               <span className="saved-stat-value">{recipes.length}</span>
-              <span className="saved-stat-label">MASTERED</span>
+              <span className="saved-stat-label">SAVED</span>
             </div>
             <div className="saved-stat">
               <span className="saved-stat-value">{beginnerCount}</span>
@@ -127,7 +126,7 @@ export default function SavedRecipesPage() {
         {/* mastered recipes panel */}
         <div className="saved-panel">
           <div className="saved-panel-header">
-            <h2 className="saved-panel-title">MASTERED RECIPES</h2>
+            <h2 className="saved-panel-title">SAVED RECIPES</h2>
             <span className="saved-panel-count">{recipes.length} recipes</span>
           </div>
 
