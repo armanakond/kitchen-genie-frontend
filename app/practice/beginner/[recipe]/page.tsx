@@ -75,7 +75,7 @@ export default function PracticeGamePage({
       const { data: cardsData } = await supabase
         .from("cards")
         .select("*")
-        .eq("recipe_id", recipeId)
+        .eq("recipe_id", recipeId) //filters cards for this recipe
         .order("correct_order");
 
       if (cardsData) {
@@ -136,13 +136,13 @@ export default function PracticeGamePage({
   const handleDragOver = (e: React.DragEvent) => { e.preventDefault(); setDragOver(true); };
   const handleDragLeave = () => setDragOver(false);
 
-  const handleDrop = (e: React.DragEvent) => { 
+  const handleDrop = (e: React.DragEvent) => {
     e.preventDefault(); //set drag over to false on drop
-    setDragOver(false); //
+    setDragOver(false);
 
     if (!dragId.current || !correctCard) return; //safety check
 
-    const droppedCardId = dragId.current; 
+    const droppedCardId = dragId.current;
     setDropped(droppedCardId);
 
     if (droppedCardId === correctCard.id) {
@@ -156,7 +156,7 @@ export default function PracticeGamePage({
           //all steps complete, go to complete screen
           router.push(`/practice/complete?recipe=${recipeId}&mistakes=${mistakes}&difficulty=beginner`); //pass recipe ID and mistake count as query params
         } else {
-          setCurrentStepIndex(nextIndex); 
+          setCurrentStepIndex(nextIndex);
           setDisplayedCards(pickCards(cards, nextIndex));
           setDropped(null);
           setFeedback(null);

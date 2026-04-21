@@ -64,8 +64,8 @@ function QuestCompleteContent() {
         .single();
 
       if (statsData) {
-        const newXp = statsData.total_xp + xp;
-        const newLevel = Math.floor(newXp / 1000) + 1;
+        const newXp = statsData.total_xp + xp; //add earned xp to total xp
+        const newLevel = Math.floor(newXp / 1000) + 1; //level 1 = 1000 xp, level 2 = 2000 xp etc
         await supabase
           .from("user_stats")
           .update({ total_xp: newXp, level: newLevel, last_active: new Date().toISOString().split("T")[0] })
