@@ -1,3 +1,7 @@
+//app/tutorial/page.tsx
+//tutorial page 1, introduces the app and explains the core game mechanics
+//new users are redirected here after signing up before reaching the dashboard
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,64 +10,59 @@ export default function TutorialPage() {
     <main className="tut-page">
       {/* Header */}
       <header className="tut-header">
-        <h1 className="tut-title">TUTORIAL PAGE</h1>
-
+        <h1 className="tut-title">HOW TO PLAY</h1>
         <div className="tut-logo">
-          <Image
-            src="/images/Logo.png"
-            alt="Kitchen Genie Logo"
-            width={200}
-            height={200}
-            priority
-          />
+          <Image src="/images/Logo.png" alt="Kitchen Genie Logo" width={100} height={100} priority />
         </div>
       </header>
 
       {/* Body */}
       <section className="tut-body">
         <div className="tut-text">
+
           <p className="tut-lead">
-            <span className="tut-bold">How it works:</span>
+            <span className="tut-bold">Welcome to Kitchen Genie!</span>
             <br />
-            Learn how to use Kitchen Genie in minutes.
+            Your gamified cooking companion. Here's everything you need to know before you start.
           </p>
 
           <div className="tut-rule">
-            <h2 className="tut-rule-title">RULE 1: Learn by Cooking</h2>
+            <h2 className="tut-rule-title">🍳 How the Game Works</h2>
             <p className="tut-rule-desc">
-              Kitchen Genie teaches cooking through step-by-step interactive cards.
-              <br />
-              Each card represents a cooking action
+              Each recipe is broken down into individual steps. For every step, you will be shown
+              an instruction e.g. <span className="tut-bold">"Boil the pasta"</span>,
+              you must drag the correct card from the tray at the bottom of the screen into the drop
+              zone. Cards come in two types: <span className="tut-bold">green INGREDIENT cards</span> for
+              ingredients you need, and <span className="tut-bold">orange ACTION cards</span> for
+              cooking techniques and methods.
             </p>
           </div>
 
           <div className="tut-rule">
-            <h2 className="tut-rule-title">RULE 2: Drag &amp; Drop</h2>
+            <h2 className="tut-rule-title">🎯 Earning Stars and XP</h2>
             <p className="tut-rule-desc">
-              Combine <span className="tut-bold">INGREDIENTS</span> and{" "}
-              <span className="tut-bold">ACTIONS</span> in the portal. Order matters
-              for perfect combos.
+              Your performance is rated with up to 3 stars at the end of each recipe.
+              Complete a recipe with <span className="tut-bold">no mistakes</span> to earn 3 stars and
+              100 XP. Make 1–3 mistakes for 2 stars and 75 XP, or 4–5 mistakes for 1 star and 50 XP.
+              XP accumulates to increase your player level — the more you cook, the higher you climb!
             </p>
           </div>
 
           <div className="tut-rule">
-            <h2 className="tut-rule-title">RULE 3: Earn XP</h2>
+            <h2 className="tut-rule-title">⏱ Beat the Clock</h2>
             <p className="tut-rule-desc">
-              Complete quests to gain XP and unlock more recipes as you level up.
-              Rise to become a grandmaster chef the kitchen!
+              Each recipe has a countdown timer. Beginner recipes give you 3 minutes,
+              intermediate gives you 2 minutes, and advanced gives you just 90 seconds.
+              If the timer runs out before you finish, the recipe resets, so think fast!
             </p>
           </div>
+
         </div>
 
-        {/* Buttons bottom-right */}
+        {/* Navigation buttons */}
         <div className="tut-actions">
-          <Link className="tut-btn" href="/tutorial/step2">
-            NEXT
-          </Link>
-
-          <Link className="tut-btn" href="/dashboard">
-            SKIP TUTORIAL
-          </Link>
+          <Link className="tut-btn" href="/tutorial/step2">NEXT →</Link>
+          <Link className="tut-btn" href="/dashboard">SKIP TUTORIAL</Link>
         </div>
       </section>
     </main>

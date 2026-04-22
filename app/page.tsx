@@ -1,6 +1,8 @@
 
+// Home/Landing page - page shown to users before login/signup
 import Image from "next/image";
 import Link from "next/link";
+
 
 export default function Home() {
   return (
@@ -17,6 +19,7 @@ export default function Home() {
         </div>
       </header>
 
+      {/*Main panel with tagline and call to action */}
       <section className="panel">
         <h1 className="headline">
           MASTER THE KITCHEN
@@ -27,6 +30,7 @@ export default function Home() {
           The gamified cooking platform for students with limited time and a hunger for learning
         </p>
 
+        {/* Call to action buttons for signup and login */}
         <div className="actions">
           <Link href="/signup" className="btn">SIGN UP</Link>
 
