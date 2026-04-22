@@ -52,7 +52,7 @@ export default function SignupPage() {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/tutorial`, //redirect to tutorial page after google signup, since they skip email verification
+        redirectTo: `${window.location.origin}/auth/callback`,
       },
     });
   };
