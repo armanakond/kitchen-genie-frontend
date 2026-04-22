@@ -1,57 +1,80 @@
-//app/login/page.tsx
-//login page allows users to sign in with email and password
-//supabase auth signInWithPassword and redirects to dashboard on success
-
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 
 export default function LoginPage() {
   const router = useRouter();
-  //handles form submission 
-  //authenticates user with supabase and redirects to dashboard on success
+
+  // ✅ EMAIL LOGIN
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const form = e.currentTarget;
     const email = (form.elements[0] as HTMLInputElement).value;
     const password = (form.elements[1] as HTMLInputElement).value;
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
     if (error) {
       alert(error.message);
       return;
     }
-    //redirect to dashboard on successful login
-    router.push("/dashboard");
+
+    if (data.session) {
+      router.replace("/dashboard");
+    }
   };
 
-  //handles google oauth login, redirects to dashboard on success
+  // ✅ GOOGLE LOGIN
   const handleGoogleLogin = async () => {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/dashboard`,
+        redirectTo: `${window.location.origin}/auth/callback`,
       },
     });
   };
 
+  // 🔥 FIX: handle OAuth/session return (THIS WAS MISSING)
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (session) {
+        router.replace("/dashboard"); // or "/tutorial"
+      }
+    };
+
+    checkSession();
+  }, [router]);
+
   return (
     <main className="screen authScreen">
-      {/*logo */}
+      {/* logo */}
       <header className="brand">
-        <Image src="/images/logo.png" alt="Kitchen Genie logo" width={200} height={200} priority />
+        <Image
+          src="/images/logo.png"
+          alt="Kitchen Genie logo"
+          width={200}
+          height={200}
+          priority
+        />
       </header>
-      {/*Login form */}
+
+      {/* login form */}
       <section className="authCard" aria-label="Log into your account">
         <div className="authCardHeader">
           <h1 className="authTitle">WELCOME BACK</h1>
           <p className="authSubtitle">Welcome back. Please enter your details.</p>
         </div>
-        {/*Form with email and password fields, submit button, and forgot password link */}
+
         <form className="authForm" onSubmit={handleSubmit}>
           <input
             className="authInput"
@@ -59,7 +82,7 @@ export default function LoginPage() {
             placeholder="Email address"
             required
           />
-          {/* Password field and forgot password link */}
+
           <div className="authPasswordGroup">
             <input
               className="authInput"
@@ -67,6 +90,7 @@ export default function LoginPage() {
               placeholder="Password"
               required
             />
+
             <Link className="authForgot" href="/forgot-password">
               Forgot password?
             </Link>
@@ -77,14 +101,14 @@ export default function LoginPage() {
           </button>
         </form>
 
-        {/*divider between email login and google login */}
+        {/* divider */}
         <div style={{ display: "flex", alignItems: "center", gap: "10px", margin: "16px 0" }}>
           <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.12)" }} />
           <span className="divider">OR</span>
           <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.12)" }} />
         </div>
 
-        {/*google oauth login button, this will allow you to login with google */}
+        {/* google login */}
         <button
           onClick={handleGoogleLogin}
           type="button"
@@ -103,10 +127,7 @@ export default function LoginPage() {
             alignItems: "center",
             justifyContent: "center",
             gap: "10px",
-            transition: "background 0.15s",
           }}
-          onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.12)")}
-          onMouseLeave={e => (e.currentTarget.style.background = "rgba(255,255,255,0.06)")}
         >
           <img src="/images/icons/google.png" width={20} height={20} alt="Google" />
           CONTINUE WITH GOOGLE
