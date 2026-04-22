@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import PageHeader from "@/app/components/PageHeader";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -105,18 +106,9 @@ export default function ProfilePage() {
   //main profile page layout, includes sections for account info, display name, password change, and account deletion
   return (
     <main className="profile-page">
-      <header className="profile-header">
-        <Link href="/dashboard" className="profile-back" aria-label="Back">
-          <span className="btn-back">←</span>
-        </Link>
-        <h1 className="profile-title">PROFILE SETTINGS</h1>
-        <div className="profile-logo">
-          <Image src="/images/logo.png" alt="Kitchen Genie" width={90} height={90} priority />
-        </div>
-      </header>
+      <PageHeader title="PROFILE SETTINGS" backHref="/dashboard" />
 
       <div className="profile-body">
-
         {/* account info, read only section */}
         <div className="profile-section">
           <h2 className="profile-section-title">ACCOUNT INFO</h2>

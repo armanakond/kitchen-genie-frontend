@@ -2,6 +2,7 @@
 //recipe detail difficulty page allows users to pick between beginner, intermediate and advanced
 //reuses the prac-page layout since it has the same card selection pattern
 
+import PageHeader from "@/app/components/PageHeader";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -30,17 +31,7 @@ const PATHS = [
 export default function RecipeDetailSelectionPage() {
   return (
     <main className="prac-page">
-      <header className="prac-header">
-        <Link href="/learn" className="prac-home-btn" aria-label="Back">
-          <span className="btn-back">←</span>
-        </Link>
-
-        <h1 className="prac-title">RECIPE DETAIL SELECTION</h1>
-
-        <div className="prac-logo">
-          <Image src="/images/logo.png" alt="Kitchen Genie" width={90} height={90} priority />
-        </div>
-      </header>
+      <PageHeader title="RECIPE DETAIL SELECTION" backHref="/learn" />
 
       {/* Difficulty selection cards, hearts show the difficulty level*/}
       <section className="prac-cards">

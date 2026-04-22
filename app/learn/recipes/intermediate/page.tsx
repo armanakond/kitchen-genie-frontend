@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
+import PageHeader from "@/app/components/PageHeader";
 
 type Recipe = {
   id: string;
@@ -43,15 +44,7 @@ export default function LearnIntermediatePage() {
 
   return (
     <main className="rdr-page">
-      <header className="rdr-header">
-        <Link href="/learn/recipes" className="rdr-home-btn" aria-label="Back">
-          <span className="btn-back">←</span>
-        </Link>
-        <h1 className="rdr-title">INTERMEDIATE RECIPES</h1>
-        <div className="rdr-logo">
-          <Image src="/images/logo.png" alt="Kitchen Genie" width={90} height={90} priority />
-        </div>
-      </header>
+      <PageHeader title="INTERMEDIATE RECIPES" backHref="/learn/recipes" />
 
       <div className="rdr-search-row">
         <span className="rdr-search-icon">🔍</span>

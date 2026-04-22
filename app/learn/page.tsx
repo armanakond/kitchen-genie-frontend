@@ -5,19 +5,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import PageHeader from "@/app/components/PageHeader";
 
 export default function LearnPage() {
   return (
     <main className="learn-page">
-      <header className="learn-header">
-        <Link href="/dashboard" className="learn-home-btn" aria-label="Back to menu">
-          <span className="btn-back">←</span>
-        </Link>
-        <h1 className="learn-title">LEARN TO COOK</h1>
-        <div className="learn-logo">
-          <Image src="/images/logo.png" alt="Kitchen Genie" width={90} height={90} priority />
-        </div>
-      </header>
+      <PageHeader title="LEARN TO COOK" backHref="/dashboard" />
       {/* cards for recipe detail and quick recipes paths */}
       <section className="learn-cards">
 
