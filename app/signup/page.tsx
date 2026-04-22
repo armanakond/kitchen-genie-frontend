@@ -34,6 +34,7 @@ export default function SignupPage() {
         data: {
           display_name: displayName,
         },
+        emailRedirectTo: 'https://kitchen-genie-frontend.vercel.app/tutorial' //redirect to tutorial page after email verification
       },
     });
 
