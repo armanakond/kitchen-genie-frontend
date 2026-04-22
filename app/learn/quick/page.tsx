@@ -54,7 +54,7 @@ export default function QuickRecipesPage() {
         </Link>
         <h1 className="qr-title">QUICK RECIPES</h1>
         <div className="qr-logo">
-          <Image src="/images/Logo.png" alt="Kitchen Genie" width={90} height={90} priority />
+          <Image src="/images/logo.png" alt="Kitchen Genie" width={90} height={90} priority />
         </div>
       </header>
 

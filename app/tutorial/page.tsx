@@ -12,7 +12,7 @@ export default function TutorialPage() {
       <header className="tut-header">
         <h1 className="tut-title">HOW TO PLAY</h1>
         <div className="tut-logo">
-          <Image src="/images/Logo.png" alt="Kitchen Genie Logo" width={100} height={100} priority />
+          <Image src="/images/logo.png" alt="Kitchen Genie Logo" width={100} height={100} priority />
         </div>
       </header>
 

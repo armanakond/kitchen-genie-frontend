@@ -91,7 +91,7 @@ export default function SavedRecipesPage() {
         </Link>
         <h1 className="saved-title">SAVED RECIPES</h1>
         <div className="saved-logo">
-          <Image src="/images/Logo.png" alt="Kitchen Genie" width={90} height={90} priority />
+          <Image src="/images/logo.png" alt="Kitchen Genie" width={90} height={90} priority />
         </div>
       </header>
 

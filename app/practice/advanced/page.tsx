@@ -59,7 +59,7 @@ export default function PracticeAdvancedPage() {
         </Link>
         <h1 className="rdr-title">ADVANCED — CHOOSE RECIPE</h1>
         <div className="rdr-logo">
-          <Image src="/images/Logo.png" alt="Kitchen Genie" width={90} height={90} priority />
+          <Image src="/images/logo.png" alt="Kitchen Genie" width={90} height={90} priority />
         </div>
       </header>
       {/*search bar to filter recipes by name */}

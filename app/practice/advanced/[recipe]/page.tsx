@@ -100,7 +100,7 @@ export default function PracticeGamePage({
       setHint(""); //reset hint
       setMistakes(0); //reset mistakes
       setShowFail(true); //show fail overlay
-      setTimerActive(false); 
+      setTimerActive(false);
       return;
     }
     const interval = setInterval(() => {
@@ -239,7 +239,7 @@ export default function PracticeGamePage({
         <Link href="/practice/advanced" className="btn-back" aria-label="Back">←</Link>
         <h1 className="game-title">PRACTICE MODE</h1>
         <div className="game-logo">
-          <Image src="/images/Logo.png" alt="Kitchen Genie" width={90} height={90} priority />
+          <Image src="/images/logo.png" alt="Kitchen Genie" width={90} height={90} priority />
         </div>
         <div style={{
           position: "absolute",

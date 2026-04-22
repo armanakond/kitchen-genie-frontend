@@ -111,7 +111,7 @@ export default function ProfilePage() {
         </Link>
         <h1 className="profile-title">PROFILE SETTINGS</h1>
         <div className="profile-logo">
-          <Image src="/images/Logo.png" alt="Kitchen Genie" width={90} height={90} priority />
+          <Image src="/images/logo.png" alt="Kitchen Genie" width={90} height={90} priority />
         </div>
       </header>
 
