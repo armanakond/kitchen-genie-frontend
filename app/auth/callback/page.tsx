@@ -1,3 +1,6 @@
+//this page is the callback URL for supabase auth, it handles the redirect after login/signup and sets the session
+//it checks for the session and redirects to dashboard if found, otherwise back to login
+
 "use client";
 
 import { useEffect } from "react";
@@ -9,27 +12,17 @@ export default function AuthCallback() {
 
   useEffect(() => {
     const handleAuth = async () => {
-      // This exchanges the ?code=... for a session
-      // const { error } = await supabase.auth.exchangeCodeForSession(
-      //   window.location.href
-      // );
 
-      // if (error) {
-      //   console.error(error.message);
-      //   router.replace("/login");
-      //   return;
-      // }
-
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session } } = await supabase.auth.getSession(); //get session from supabase auth
 
       if (session) {
-        router.replace("/dashboard"); // or /tutorial
+        router.replace("/dashboard"); //if session exists, redirect to dashboard
       } else {
-        router.replace("/login");
+        router.replace("/login"); //no session => back to login
       }
     };
 
-    handleAuth();
+    handleAuth(); //call the async function to handle auth on component mount
   }, [router]);
 
   return <p>Signing you in...</p>;

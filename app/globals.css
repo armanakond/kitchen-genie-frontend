@@ -2186,12 +2186,16 @@ img {
   text-align: center;
 }
 
+/* UNIVERSAL LOGO */
+
 .page-header-logo {
   position: absolute;
   right: 24px;
   top: 50%;
   transform: translateY(-50%);
 }
+
+/* UNIVERSAL BACK BUTTON */
 
 .page-header-back {
   position: absolute;
