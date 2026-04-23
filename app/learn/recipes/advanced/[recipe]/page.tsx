@@ -79,7 +79,7 @@ export default function RecipeDetailPage({
         </Link>
         <h1 className="steps-title">RECIPE DETAIL</h1>
         <div className="steps-logo">
-          <Image src="/images/Logo.png" alt="Kitchen Genie" width={90} height={90} priority />
+          <Image src="/images/logo.png" alt="Kitchen Genie" width={90} height={90} priority />
         </div>
       </header>
 

@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
+import PageHeader from "@/app/components/PageHeader";
 
 // placeholder username, wil lcome from supabase user_metadata
 const USERNAME = "Your Username";
@@ -85,16 +86,7 @@ export default function SavedRecipesPage() {
   return (
     <main className="saved-page">
       {/* header */}
-      <header className="saved-header">
-        <Link href="/dashboard" className="saved-home-btn" aria-label="Back to menu">
-          <span className="btn-back">←</span>
-        </Link>
-        <h1 className="saved-title">SAVED RECIPES</h1>
-        <div className="saved-logo">
-          <Image src="/images/Logo.png" alt="Kitchen Genie" width={90} height={90} priority />
-        </div>
-      </header>
-
+      <PageHeader title="SAVED RECIPES" backHref="/dashboard" />
       {/* body */}
       <div className="saved-body">
         {/* username + stats row */}

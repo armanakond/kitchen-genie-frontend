@@ -13,7 +13,7 @@ export default function TutorialStep2Page() {
         <Link href="/tutorial" className="btn-back" aria-label="Back to tutorial step 1">←</Link>
         <h1 className="tut-title">HOW TO PLAY</h1>
         <div className="tut-logo">
-          <Image src="/images/Logo.png" alt="Kitchen Genie Logo" width={90} height={90} priority />
+          <Image src="/images/logo.png" alt="Kitchen Genie Logo" width={90} height={90} priority />
         </div>
       </header>
 

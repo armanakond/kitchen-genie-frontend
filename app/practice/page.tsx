@@ -5,6 +5,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import PageHeader from "@/app/components/PageHeader";
 
 export default function PracticePage() {
 
@@ -36,17 +37,7 @@ export default function PracticePage() {
   return (
 
     <main className="prac-page">
-      <header className="prac-header">
-        <Link href="/dashboard" className="prac-home-btn" aria-label="Back to menu">
-          <span className="btn-back">←</span>
-
-        </Link>
-        <h1 className="prac-title">PRACTICE MODE</h1>
-        <div className="prac-logo">
-          <Image src="/images/Logo.png" alt="Kitchen Genie" width={90} height={90} priority />
-        </div>
-      </header>
-
+      <PageHeader title="PRACTICE MODE" backHref="/dashboard" />
       {/*difficulty selection cards */}
       <section className="prac-cards">
         {paths.map((p) => (

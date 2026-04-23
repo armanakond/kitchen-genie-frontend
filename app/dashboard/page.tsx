@@ -120,7 +120,7 @@ export default function DashboardPage() {
       {/*sidebar with logo and navigation links to other sections */}
       <aside className="dash-sidebar">
         <div className="dash-logo">
-          <Image src="/images/Logo.png" alt="Kitchen Genie" width={160} height={160} priority />
+          <Image src="/images/logo.png" alt="Kitchen Genie" width={160} height={160} priority />
         </div>
         <nav className="dash-nav">
           <Link className="dash-btn" href="/learn">LEARN</Link>

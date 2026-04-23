@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
+import PageHeader from "@/app/components/PageHeader";
 
 //types for recipe data fetched from supabase
 type Recipe = {
@@ -48,15 +49,7 @@ export default function QuickRecipesPage() {
 
   return (
     <main className="qr-page">
-      <header className="qr-header">
-        <Link href="/learn" className="qr-back" aria-label="Back">
-          <span className="btn-back">←</span>
-        </Link>
-        <h1 className="qr-title">QUICK RECIPES</h1>
-        <div className="qr-logo">
-          <Image src="/images/Logo.png" alt="Kitchen Genie" width={90} height={90} priority />
-        </div>
-      </header>
+      <PageHeader title="QUICK RECIPES" backHref="/learn" />
 
       <div className="qr-search-row">
         <span className="qr-search-icon">🔍</span>
